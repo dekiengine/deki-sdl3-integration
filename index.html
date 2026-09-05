@@ -89,9 +89,9 @@ Components</h1>
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Component  </th><th class="markdownTableHeadNone">Category  </th><th class="markdownTableHeadNone">Description  </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><a class="el" href="#c-sdl3displaysetup" title="SDL3DisplaySetup (SDL3 Display Setup)">SDL3DisplaySetup</a>  </td><td class="markdownTableBodyNone">SDL3  </td><td class="markdownTableBodyNone">Opens the desktop window the game renders into.  </td></tr>
+<td class="markdownTableBodyNone"><a class="el" href="#c-sdl3displaysetup" title="SDL3DisplaySetup">SDL3DisplaySetup</a>  </td><td class="markdownTableBodyNone">SDL3  </td><td class="markdownTableBodyNone">Opens the desktop window the game renders into.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><a class="el" href="#c-sdl3inputsetup" title="SDL3InputSetup (SDL3 Input Setup)">SDL3InputSetup</a>  </td><td class="markdownTableBodyNone">SDL3  </td><td class="markdownTableBodyNone">Feeds desktop keyboard and mouse input to the engine.  </td></tr>
+<td class="markdownTableBodyNone"><a class="el" href="#c-sdl3inputsetup" title="SDL3InputSetup">SDL3InputSetup</a>  </td><td class="markdownTableBodyNone">SDL3  </td><td class="markdownTableBodyNone">Feeds desktop keyboard and mouse input to the engine.  </td></tr>
 </table>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md1"></a>
 Feature flags</h1>
@@ -106,30 +106,30 @@ Feature flags</h1>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md2"></a>
 Component reference</h1>
 <h2 class="doxsection"><a class="anchor" id="c-sdl3displaysetup"></a>
-SDL3DisplaySetup (SDL3 Display Setup)</h2>
+SDL3DisplaySetup</h2>
 <p>Opens the desktop window the game renders into.</p>
-<p>Category: SDL3 · Base: SetupComponent · Type GUID: <span class="tt">c3a8f1d0-5b7e-4a2c-8d91-6e3f4c7b2a50</span></p>
+<p>Inspector name: SDL3 Display Setup · Category: SDL3 · Type GUID: <span class="tt">c3a8f1d0-5b7e-4a2c-8d91-6e3f4c7b2a50</span></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
-<th class="markdownTableHeadNone">Property  </th><th class="markdownTableHeadNone">Type  </th><th class="markdownTableHeadNone">Default  </th><th class="markdownTableHeadNone">Notes  </th></tr>
+<th class="markdownTableHeadNone">Property  </th><th class="markdownTableHeadNone">Type  </th><th class="markdownTableHeadNone">Default  </th><th class="markdownTableHeadNone">Constraints  </th><th class="markdownTableHeadNone">Description  </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><span class="tt">windowWidth</span>  </td><td class="markdownTableBodyNone">int32  </td><td class="markdownTableBodyNone"><span class="tt">320</span>  </td><td class="markdownTableBodyNone">Window width in pixels Range 64 to 3840  </td></tr>
+<td class="markdownTableBodyNone"><span class="tt">windowWidth</span>  </td><td class="markdownTableBodyNone">int32  </td><td class="markdownTableBodyNone"><span class="tt">320</span>  </td><td class="markdownTableBodyNone">64 to 3840  </td><td class="markdownTableBodyNone">Window width in pixels  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><span class="tt">windowHeight</span>  </td><td class="markdownTableBodyNone">int32  </td><td class="markdownTableBodyNone"><span class="tt">240</span>  </td><td class="markdownTableBodyNone">Window height in pixels Range 64 to 2160  </td></tr>
+<td class="markdownTableBodyNone"><span class="tt">windowHeight</span>  </td><td class="markdownTableBodyNone">int32  </td><td class="markdownTableBodyNone"><span class="tt">240</span>  </td><td class="markdownTableBodyNone">64 to 2160  </td><td class="markdownTableBodyNone">Window height in pixels  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><span class="tt">windowScale</span>  </td><td class="markdownTableBodyNone">int32  </td><td class="markdownTableBodyNone"><span class="tt">2</span>  </td><td class="markdownTableBodyNone">Window scale multiplier Range 1 to 8  </td></tr>
+<td class="markdownTableBodyNone"><span class="tt">windowScale</span>  </td><td class="markdownTableBodyNone">int32  </td><td class="markdownTableBodyNone"><span class="tt">2</span>  </td><td class="markdownTableBodyNone">1 to 8  </td><td class="markdownTableBodyNone">Window scale multiplier  </td></tr>
 </table>
 <h2 class="doxsection"><a class="anchor" id="c-sdl3inputsetup"></a>
-SDL3InputSetup (SDL3 Input Setup)</h2>
+SDL3InputSetup</h2>
 <p>Feeds desktop keyboard and mouse input to the engine.</p>
-<p>Category: SDL3 · Base: SetupComponent · Type GUID: <span class="tt">d4b9e2f1-6c8a-4d3b-9e72-7f4g5d8c3b61</span></p>
+<p>Inspector name: SDL3 Input Setup · Category: SDL3 · Type GUID: <span class="tt">d4b9e2f1-6c8a-4d3b-9e72-7f4g5d8c3b61</span></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
-<th class="markdownTableHeadNone">Property  </th><th class="markdownTableHeadNone">Type  </th><th class="markdownTableHeadNone">Default  </th><th class="markdownTableHeadNone">Notes  </th></tr>
+<th class="markdownTableHeadNone">Property  </th><th class="markdownTableHeadNone">Type  </th><th class="markdownTableHeadNone">Default  </th><th class="markdownTableHeadNone">Constraints  </th><th class="markdownTableHeadNone">Description  </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><span class="tt">enableKeyboard</span>  </td><td class="markdownTableBodyNone">bool  </td><td class="markdownTableBodyNone"><span class="tt">true</span>  </td><td class="markdownTableBodyNone">Enable keyboard input  </td></tr>
+<td class="markdownTableBodyNone"><span class="tt">enableKeyboard</span>  </td><td class="markdownTableBodyNone">bool  </td><td class="markdownTableBodyNone"><span class="tt">true</span>  </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">Enable keyboard input  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><span class="tt">enableMouse</span>  </td><td class="markdownTableBodyNone">bool  </td><td class="markdownTableBodyNone"><span class="tt">true</span>  </td><td class="markdownTableBodyNone">Enable mouse/pointer input  </td></tr>
+<td class="markdownTableBodyNone"><span class="tt">enableMouse</span>  </td><td class="markdownTableBodyNone">bool  </td><td class="markdownTableBodyNone"><span class="tt">true</span>  </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">Enable mouse/pointer input  </td></tr>
 </table>
 <hr  />
 <p>Generated from the package's reflection metadata by the Deki documentation build (engine 1.3.0). Reflected property names are the keys scene files use; a rename ships with an alias, see <a href="https://github.com/dekiengine/deki-editor/blob/master/COMPATIBILITY.md">COMPATIBILITY.md</a>. </p>

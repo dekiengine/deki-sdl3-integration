@@ -28,8 +28,8 @@ var NAVTREE =
     [ "Components", "index.html#autotoc_md0", null ],
     [ "Feature flags", "index.html#autotoc_md1", null ],
     [ "Component reference", "index.html#autotoc_md2", [
-      [ "SDL3DisplaySetup (SDL3 Display Setup)", "index.html#c-sdl3displaysetup", null ],
-      [ "SDL3InputSetup (SDL3 Input Setup)", "index.html#c-sdl3inputsetup", null ]
+      [ "SDL3DisplaySetup", "index.html#c-sdl3displaysetup", null ],
+      [ "SDL3InputSetup", "index.html#c-sdl3inputsetup", null ]
     ] ]
   ] ]
 ];
