@@ -13,11 +13,11 @@
  *
  * Inherits from SetupComponent to participate in boot sequence.
  */
+DEKI_CATEGORY("SDL3")
+DEKI_DESCRIPTION("Opens the desktop window the game renders into.")
 class DEKI_SDL3_API SDL3DisplaySetup : public Deki::SetupComponent
 {
 public:
-    DEKI_COMPONENT(SDL3DisplaySetup, Deki::SetupComponent, "SDL3", "c3a8f1d0-5b7e-4a2c-8d91-6e3f4c7b2a50", "DEKI_FEATURE_SDL3_DISPLAY_SETUP")
-    DEKI_DESCRIPTION("Opens the desktop window the game renders into.")
 
     DEKI_EXPORT
     DEKI_TOOLTIP("Window width in pixels")
@@ -39,4 +39,3 @@ public:
 };
 
 // Generated property metadata
-#include "generated/SDL3DisplaySetup.gen.h"

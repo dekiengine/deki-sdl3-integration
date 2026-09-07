@@ -11,11 +11,11 @@
  *
  * Inherits from SetupComponent to participate in boot sequence.
  */
+DEKI_CATEGORY("SDL3")
+DEKI_DESCRIPTION("Feeds desktop keyboard and mouse input to the engine.")
 class DEKI_SDL3_API SDL3InputSetup : public Deki::SetupComponent
 {
 public:
-    DEKI_COMPONENT(SDL3InputSetup, Deki::SetupComponent, "SDL3", "d4b9e2f1-6c8a-4d3b-9e72-7f4g5d8c3b61", "DEKI_FEATURE_SDL3_INPUT_SETUP")
-    DEKI_DESCRIPTION("Feeds desktop keyboard and mouse input to the engine.")
 
     DEKI_EXPORT
     DEKI_TOOLTIP("Enable keyboard input")
@@ -30,4 +30,3 @@ public:
 };
 
 // Generated property metadata
-#include "generated/SDL3InputSetup.gen.h"

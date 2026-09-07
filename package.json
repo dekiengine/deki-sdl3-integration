@@ -1,7 +1,7 @@
 {
   "id": "deki-sdl3",
   "displayName": "SDL3 Integration",
-  "minEngine": "0.10.0",
+  "minEngine": "0.11.0",
   "buildDefine": "DEKI_PACKAGE_SDL3",
   "requires": [
     "deki-input"
@@ -11,16 +11,16 @@
       "id": "display",
       "displayName": "Display",
       "defaultEnabled": true,
-      "componentGuids": [
-        "c3a8f1d0-5b7e-4a2c-8d91-6e3f4c7b2a50"
+      "componentTypes": [
+        "SDL3DisplaySetup"
       ]
     },
     {
       "id": "input",
       "displayName": "Input",
       "defaultEnabled": true,
-      "componentGuids": [
-        "d4b9e2f1-6c8a-4d3b-9e72-7f4g5d8c3b61"
+      "componentTypes": [
+        "SDL3InputSetup"
       ]
     }
   ],
