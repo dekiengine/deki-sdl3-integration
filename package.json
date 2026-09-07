@@ -29,7 +29,15 @@
       {
         "name": "SDL3",
         "version": "3.2.8",
-        "git": "https://github.com/libsdl-org/SDL.git"
+        "git": "https://github.com/libsdl-org/SDL.git",
+        "prebuilt": {
+          "windows-mingw": {
+            "url": "https://github.com/libsdl-org/SDL/releases/download/release-3.2.8/SDL3-devel-3.2.8-mingw.zip",
+            "sha256": "557661694a37bf3f9c4076353bebe7c0e5d457077f093d4e52c756a83706ba24",
+            "cmakeDir": "SDL3-3.2.8/x86_64-w64-mingw32/lib/cmake/SDL3",
+            "includeDir": "SDL3-3.2.8/x86_64-w64-mingw32/include"
+          }
+        }
       }
     ]
   }
