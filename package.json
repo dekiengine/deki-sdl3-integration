@@ -3,8 +3,8 @@
   "displayName": "SDL3 Integration",
   "minEngine": "0.14.0",
   "buildDefine": "DEKI_PACKAGE_SDL3",
-  "platforms": [
-    "native"
+  "platformRequires": [
+    "sdl3"
   ],
   "requires": [
     "deki-input"
