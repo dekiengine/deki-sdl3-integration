@@ -1,4 +1,5 @@
 #include "SDL3Display.h"
+#include <deki/providers/Memory.h>
 
 #include <cstring>
 #include <memory>
@@ -355,7 +356,13 @@ bool SDL3Display::UpdateUIOverlayRGB565A8(
     // Convert RGB565A8 to ARGB8888 for SDL
     // RGB565A8 format: [RGB565_low, RGB565_high, Alpha] per pixel
     int pixel_count = width * height;
-    uint32_t* argb8888_buffer = new uint32_t[pixel_count];
+    // A whole-screen conversion scratch buffer.
+    uint32_t* argb8888_buffer =
+        Deki::Memory::AllocateArray<uint32_t>(static_cast<size_t>(pixel_count),
+                                             Deki::MemoryUse::Buffer,
+                                             "SDL3Display::argb");
+    if (!argb8888_buffer)
+        return false;
 
     for (int i = 0; i < pixel_count; i++)
     {
@@ -381,7 +388,7 @@ bool SDL3Display::UpdateUIOverlayRGB565A8(
     SDL_Rect rect = {x, y, width, height};
 
     bool ok = SDL_UpdateTexture(texture, &rect, argb8888_buffer, width * 4);
-    delete[] argb8888_buffer;
+    Deki::Memory::Free(argb8888_buffer);
 
     if (!ok)
     {
@@ -427,11 +434,14 @@ void SDL3Display::ClearActiveUIOverlay()
     // Create transparent pixel buffer
     int iw = (int)w, ih = (int)h;
     size_t buffer_size = iw * ih * sizeof(uint32_t);
-    uint32_t* clear_buffer = (uint32_t*)malloc(buffer_size);
+    // Through the engine like everything else; it already zeroes what it
+    // hands back, which is exactly what this buffer is for.
+    uint32_t* clear_buffer =
+        (uint32_t*)Deki::Memory::Allocate(buffer_size, Deki::MemoryUse::Buffer,
+                                          "SDL3Display::clear");
     if (clear_buffer)
     {
-        memset(clear_buffer, 0, buffer_size);
         SDL_UpdateTexture(m_UiOverlayTexture, nullptr, clear_buffer, iw * sizeof(uint32_t));
-        free(clear_buffer);
+        Deki::Memory::Free(clear_buffer);
     }
 }
