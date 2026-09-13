@@ -1,5 +1,6 @@
 #pragma once
 
+#include <deki/Engine.h>  // ColorFormat
 #include <SDL3/SDL.h>
 
 #include <deki/providers/IDisplay.h>
@@ -20,7 +21,12 @@ class SDL3Display : public Deki::IDisplay
     bool initialized;
 
     // Game texture cache variables
-    int last_fb_width, last_fb_height, m_LastFbFormat;
+    int last_fb_width, last_fb_height;
+
+    // The format the current texture was built for. Only consulted when
+    // m_GameTexture is non-null, so it needs no "nothing yet" sentinel - which
+    // is what the old int -1 was, and what a ColorFormat cannot express.
+    Deki::ColorFormat m_LastFbFormat = Deki::ColorFormat::RGB565;
 
    public:
     SDL3Display();
@@ -29,9 +35,9 @@ class SDL3Display : public Deki::IDisplay
     // IPlatformDisplay interface
     bool Initialize(int32_t width, int32_t height) override;
     void Shutdown() override;
-    void Present(const uint8_t* framebuffer, int width, int height, int format) override;
+    void Present(const uint8_t* framebuffer, int width, int height, Deki::ColorFormat format) override;
     bool SupportsPartialPresent() const override { return true; }
-    void PresentRegions(const uint8_t* framebuffer, int width, int height, int format,
+    void PresentRegions(const uint8_t* framebuffer, int width, int height, Deki::ColorFormat format,
                         const Deki::Rect* rects, int32_t count) override;
     void GetDisplaySize(int32_t* width, int32_t* height) const override;
     bool IsInitialized() const override;
@@ -55,7 +61,7 @@ class SDL3Display : public Deki::IDisplay
    private:
     // (Re)create the game texture for this frame size/format. Returns true
     // when it was recreated (contents undefined: upload the whole frame).
-    bool EnsureGameTexture(int width, int height, int format);
+    bool EnsureGameTexture(int width, int height, Deki::ColorFormat format);
     // Clear, draw the game texture and the overlay, present the window.
     void DrawWindow();
 };

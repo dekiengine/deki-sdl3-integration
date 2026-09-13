@@ -29,7 +29,6 @@ SDL3Display::SDL3Display()
 , initialized(false)
 , last_fb_width(0)
 , last_fb_height(0)
-, m_LastFbFormat(-1)
 {
 }
 
@@ -131,7 +130,7 @@ void SDL3Display::Shutdown()
     initialized = false;
 }
 
-bool SDL3Display::EnsureGameTexture(int width, int height, int format)
+bool SDL3Display::EnsureGameTexture(int width, int height, Deki::ColorFormat format)
 {
     if (m_GameTexture && width == last_fb_width && height == last_fb_height && format == m_LastFbFormat)
         return false;
@@ -146,13 +145,13 @@ bool SDL3Display::EnsureGameTexture(int width, int height, int format)
     SDL_PixelFormat sdl_format;
     switch (format)
     {
-        case 0:  // RGB565
+        case Deki::ColorFormat::RGB565:
             sdl_format = SDL_PIXELFORMAT_RGB565;
             break;
-        case 1:  // RGB888
+        case Deki::ColorFormat::RGB888:
             sdl_format = SDL_PIXELFORMAT_XRGB8888;
             break;
-        case 2:  // ARGB8888
+        case Deki::ColorFormat::ARGB8888:
             sdl_format = SDL_PIXELFORMAT_ARGB8888;
             break;
         default:
@@ -188,7 +187,7 @@ void SDL3Display::DrawWindow()
     SDL_RenderPresent(renderer);
 }
 
-void SDL3Display::Present(const uint8_t* framebuffer, int width, int height, int format)
+void SDL3Display::Present(const uint8_t* framebuffer, int width, int height, Deki::ColorFormat format)
 {
     if (!initialized || !renderer)
     {
@@ -211,13 +210,13 @@ void SDL3Display::Present(const uint8_t* framebuffer, int width, int height, int
                 int bytes_per_pixel;
                 switch (format)
                 {
-                    case 0:
+                    case Deki::ColorFormat::RGB565:
                         bytes_per_pixel = 2;
                         break;  // RGB565
-                    case 1:
+                    case Deki::ColorFormat::RGB888:
                         bytes_per_pixel = 3;
                         break;  // RGB888
-                    case 2:
+                    case Deki::ColorFormat::ARGB8888:
                         bytes_per_pixel = 4;
                         break;  // ARGB8888
                     default:
@@ -233,7 +232,7 @@ void SDL3Display::Present(const uint8_t* framebuffer, int width, int height, int
     DrawWindow();
 }
 
-void SDL3Display::PresentRegions(const uint8_t* framebuffer, int width, int height, int format,
+void SDL3Display::PresentRegions(const uint8_t* framebuffer, int width, int height, Deki::ColorFormat format,
                                  const Deki::Rect* rects, int32_t count)
 {
     if (!initialized || !renderer)
@@ -244,7 +243,7 @@ void SDL3Display::PresentRegions(const uint8_t* framebuffer, int width, int heig
     // Per-rectangle uploads for the 2-byte RGB565 layout (the texture's rows
     // match the framebuffer's). The other formats keep the whole-frame path;
     // so does a texture that was just recreated, whose contents are undefined.
-    if (!framebuffer || format != 0 || EnsureGameTexture(width, height, format) || !m_GameTexture)
+    if (!framebuffer || format != Deki::ColorFormat::RGB565 || EnsureGameTexture(width, height, format) || !m_GameTexture)
     {
         Present(framebuffer, width, height, format);
         return;
