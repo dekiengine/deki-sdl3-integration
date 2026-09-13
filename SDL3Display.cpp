@@ -359,8 +359,7 @@ bool SDL3Display::UpdateUIOverlayRGB565A8(
     // A whole-screen conversion scratch buffer.
     uint32_t* argb8888_buffer =
         Deki::Memory::AllocateArray<uint32_t>(static_cast<size_t>(pixel_count),
-                                             Deki::MemoryUse::External,
-                                             "SDL3Display::argb");
+                                             Deki::MemoryUse::External);
     if (!argb8888_buffer)
         return false;
 
@@ -437,8 +436,7 @@ void SDL3Display::ClearActiveUIOverlay()
     // Through the engine like everything else; it already zeroes what it
     // hands back, which is exactly what this buffer is for.
     uint32_t* clear_buffer =
-        (uint32_t*)Deki::Memory::Allocate(buffer_size, Deki::MemoryUse::External,
-                                          "SDL3Display::clear");
+        (uint32_t*)Deki::Memory::Allocate(buffer_size, Deki::MemoryUse::External);
     if (clear_buffer)
     {
         SDL_UpdateTexture(m_UiOverlayTexture, nullptr, clear_buffer, iw * sizeof(uint32_t));
