@@ -26,9 +26,14 @@ var NAVTREE =
 [
   [ "deki-sdl3-integration", "index.html", [
     [ "Components", "index.html#autotoc_md0", null ],
-    [ "Component reference", "index.html#autotoc_md1", [
+    [ "Feature flags", "index.html#autotoc_md1", null ],
+    [ "Component reference", "index.html#autotoc_md2", [
       [ "SDL3DisplaySetup", "index.html#c-sdl3displaysetup", null ],
       [ "SDL3InputSetup", "index.html#c-sdl3inputsetup", null ]
+    ] ],
+    [ "Changelog", "index.html#autotoc_md3", [
+      [ "0.15.0", "index.html#autotoc_md4", null ],
+      [ "Changed", "index.html#autotoc_md5", null ]
     ] ]
   ] ]
 ];

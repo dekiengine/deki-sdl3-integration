@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">deki-sdl3-integration<span id="projectnumber">&#160;0.10.0</span>
+   <div id="projectname">deki-sdl3-integration<span id="projectnumber">&#160;0.15.0</span>
    </div>
    <div id="projectbrief">Deki package reference</div>
   </td>
@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('index.html',''
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="mainpage"></a></p>
 <p>SDL3 display, input, and filesystem integration</p>
-<p>Repository: <a href="https://github.com/dekiengine/deki-sdl3-integration">github.com/dekiengine/deki-sdl3-integration</a> · Latest release: 0.10.0 · Requires: <a href="https://dekiengine.github.io/deki-input/">deki-input</a></p>
+<p>Repository: <a href="https://github.com/dekiengine/deki-sdl3-integration">github.com/dekiengine/deki-sdl3-integration</a> · Latest release: 0.15.0 · Needs engine 0.15.0+ · Requires: <a href="https://dekiengine.github.io/deki-input/">deki-input</a></p>
 <p>Install: <span class="tt">DekiEditor --packages-add deki-sdl3-integration &lt;project&gt;</span>, or add it in the Package Manager. Part of <a href="https://dekiengine.github.io/docs/">Deki</a>; the engine's own components and the C++ API are documented there.</p>
 <p>Shown in the editor as <b>SDL3 Integration</b>.</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md0"></a>
@@ -94,11 +94,21 @@ Components</h1>
 <td class="markdownTableBodyNone"><a class="el" href="#c-sdl3inputsetup" title="SDL3InputSetup">SDL3InputSetup</a>  </td><td class="markdownTableBodyNone">SDL3  </td><td class="markdownTableBodyNone">Feeds desktop keyboard and mouse input to the engine.  </td></tr>
 </table>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md1"></a>
+Feature flags</h1>
+<p>Compile-time features the package exposes (<span class="tt">package.json</span>):</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Feature  </th><th class="markdownTableHeadNone">Define  </th><th class="markdownTableHeadNone">Default  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Display  </td><td class="markdownTableBodyNone"><span class="tt"> \ilinebr &lt;/td&gt;    &lt;td class="markdownTableBodyNone"&gt; on \ilinebr &lt;/td&gt;  &lt;/tr&gt;
+&lt;tr class="markdownTableRowEven"&gt;    &lt;td class="markdownTableBodyNone"&gt; Input \ilinebr &lt;/td&gt;    &lt;td class="markdownTableBodyNone"&gt; </span>  </td><td class="markdownTableBodyNone">on  </td></tr>
+</table>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2"></a>
 Component reference</h1>
 <h2 class="doxsection"><a class="anchor" id="c-sdl3displaysetup"></a>
 SDL3DisplaySetup</h2>
 <p>Opens the desktop window the game renders into.</p>
-<p>Inspector name: SDL3 Display Setup · Category: SDL3 · Type GUID: <span class="tt">c3a8f1d0-5b7e-4a2c-8d91-6e3f4c7b2a50</span></p>
+<p>Inspector name: SDL3 Display Setup · Category: SDL3 · Type: <span class="tt">SDL3DisplaySetup</span></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Property  </th><th class="markdownTableHeadNone">Type  </th><th class="markdownTableHeadNone">Default  </th><th class="markdownTableHeadNone">Constraints  </th><th class="markdownTableHeadNone">Description  </th></tr>
@@ -112,7 +122,7 @@ SDL3DisplaySetup</h2>
 <h2 class="doxsection"><a class="anchor" id="c-sdl3inputsetup"></a>
 SDL3InputSetup</h2>
 <p>Feeds desktop keyboard and mouse input to the engine.</p>
-<p>Inspector name: SDL3 Input Setup · Category: SDL3 · Type GUID: <span class="tt">d4b9e2f1-6c8a-4d3b-9e72-7f4g5d8c3b61</span></p>
+<p>Inspector name: SDL3 Input Setup · Category: SDL3 · Type: <span class="tt">SDL3InputSetup</span></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Property  </th><th class="markdownTableHeadNone">Type  </th><th class="markdownTableHeadNone">Default  </th><th class="markdownTableHeadNone">Constraints  </th><th class="markdownTableHeadNone">Description  </th></tr>
@@ -121,8 +131,19 @@ SDL3InputSetup</h2>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><span class="tt">enableMouse</span>  </td><td class="markdownTableBodyNone">bool  </td><td class="markdownTableBodyNone"><span class="tt">true</span>  </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">Enable mouse/pointer input  </td></tr>
 </table>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3"></a>
+Changelog</h1>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md4"></a>
+0.15.0</h2>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md5"></a>
+Changed</h2>
+<ul>
+<li><span class="tt">Present</span> and <span class="tt">PresentRegions</span> take a <span class="tt">Deki::ColorFormat</span> instead of an <span class="tt">int</span>.</li>
+<li>Allocates through the engine with an explicit region instead of <span class="tt">new[]</span> and <span class="tt">malloc</span>.</li>
+</ul>
+<p>Earlier releases: <a href="https://github.com/dekiengine/deki-sdl3-integration/blob/master/CHANGELOG.md">CHANGELOG.md</a>.</p>
 <hr  />
-<p>Generated from the package's reflection metadata by the Deki documentation build (engine 0.10.0). Reflected property names are the keys scene files use; a rename ships with an alias, see <a href="https://github.com/dekiengine/deki-editor/blob/master/COMPATIBILITY.md">COMPATIBILITY.md</a>. </p>
+<p>Generated from the package's reflection metadata by the Deki documentation build (engine 0.15.0). Reflected property names are the keys scene files use; a rename ships with an alias, see <a href="https://github.com/dekiengine/deki-editor/blob/master/COMPATIBILITY.md">COMPATIBILITY.md</a>. </p>
 </div></div><!-- PageDoc -->
 <a href="doxygen_crawl.html"></a>
 </div><!-- contents -->
