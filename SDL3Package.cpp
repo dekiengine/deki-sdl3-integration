@@ -59,7 +59,7 @@ DEKI_SDL3_API int DekiSDL3_EnsureRegistered(void)
 
 DEKI_PLUGIN_API const char* DekiPlugin_GetName(void)
 {
-    return "DekiRendering::Deki SDL3 Package";
+    return "Deki SDL3 Package";
 }
 
 DEKI_PLUGIN_API const char* DekiPlugin_GetVersion(void)
