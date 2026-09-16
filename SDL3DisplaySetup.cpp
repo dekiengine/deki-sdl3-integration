@@ -2,9 +2,15 @@
 #include <deki/LogSystem.h>
 
 #if !defined(DEKI_EDITOR) && defined(DEKI_PACKAGE_SDL3)
-
 #include "SDL3Display.h"
 #include <deki/Engine.h>
+#endif
+
+namespace DekiSdl3
+{
+
+#if !defined(DEKI_EDITOR) && defined(DEKI_PACKAGE_SDL3)
+
 
 // Package owns the SDL3Display lifetime now (engine-core just holds the pointer).
 // File-scope unique_ptr keeps it alive for the program's lifetime.
@@ -42,3 +48,5 @@ void SDL3DisplaySetup::Setup(SetupCallback onComplete)
 }
 
 #endif
+
+}  // namespace DekiSdl3

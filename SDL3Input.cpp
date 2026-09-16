@@ -3,6 +3,9 @@
 #include <deki/Engine.h>
 #include <deki/providers/IRenderSystem.h>
 
+namespace DekiSdl3
+{
+
 namespace {
 // Mouse events arrive in window pixels, but the engine's screen->world math expects
 // framebuffer pixels. The desktop window is created larger than the framebuffer
@@ -76,13 +79,13 @@ void SDL3Input::Update()
 
 void SDL3Input::ProcessSDLEvent(const SDL_Event& event)
 {
-    InputEvent input_event;
+    DekiInput::InputEvent input_event;
     input_event.timestamp = static_cast<uint32_t>(SDL_GetTicks());
 
     if (event.type == SDL_EVENT_QUIT)
     {
         m_QuitFlag = true;
-        input_event.type = InputEventType::APP_QUIT;
+        input_event.type = DekiInput::InputEventType::APP_QUIT;
         NotifyCallbacks(input_event);
         return;
     }
@@ -93,7 +96,7 @@ void SDL3Input::ProcessSDLEvent(const SDL_Event& event)
         {
             float ex = event.motion.x, ey = event.motion.y;
             WindowToFramebuffer(event.motion.windowID, ex, ey);
-            input_event.type = InputEventType::MOUSE_MOVE;
+            input_event.type = DekiInput::InputEventType::MOUSE_MOVE;
             input_event.x = (int32_t)ex;
             input_event.y = (int32_t)ey;
             NotifyCallbacks(input_event);
@@ -104,7 +107,7 @@ void SDL3Input::ProcessSDLEvent(const SDL_Event& event)
         {
             float ex = event.button.x, ey = event.button.y;
             WindowToFramebuffer(event.button.windowID, ex, ey);
-            input_event.type = InputEventType::MOUSE_BUTTON_DOWN;
+            input_event.type = DekiInput::InputEventType::MOUSE_BUTTON_DOWN;
             input_event.x = (int32_t)ex;
             input_event.y = (int32_t)ey;
             input_event.pressed = true;
@@ -116,7 +119,7 @@ void SDL3Input::ProcessSDLEvent(const SDL_Event& event)
         {
             float ex = event.button.x, ey = event.button.y;
             WindowToFramebuffer(event.button.windowID, ex, ey);
-            input_event.type = InputEventType::MOUSE_BUTTON_UP;
+            input_event.type = DekiInput::InputEventType::MOUSE_BUTTON_UP;
             input_event.x = (int32_t)ex;
             input_event.y = (int32_t)ey;
             input_event.pressed = false;
@@ -129,7 +132,7 @@ void SDL3Input::ProcessSDLEvent(const SDL_Event& event)
             uint32_t generic_key = ConvertSDLKeyToGeneric(event.key.key);
             m_KeyStates[generic_key] = true;
 
-            input_event.type = InputEventType::KEY_DOWN;
+            input_event.type = DekiInput::InputEventType::KEY_DOWN;
             input_event.key = generic_key;
             input_event.pressed = true;
             NotifyCallbacks(input_event);
@@ -141,7 +144,7 @@ void SDL3Input::ProcessSDLEvent(const SDL_Event& event)
             uint32_t generic_key = ConvertSDLKeyToGeneric(event.key.key);
             m_KeyStates[generic_key] = false;
 
-            input_event.type = InputEventType::KEY_UP;
+            input_event.type = DekiInput::InputEventType::KEY_UP;
             input_event.key = generic_key;
             input_event.pressed = false;
             NotifyCallbacks(input_event);
@@ -150,7 +153,7 @@ void SDL3Input::ProcessSDLEvent(const SDL_Event& event)
     }
 }
 
-void SDL3Input::NotifyCallbacks(const InputEvent& event)
+void SDL3Input::NotifyCallbacks(const DekiInput::InputEvent& event)
 {
     for (const auto& callback : m_EventCallbacks)
     {
@@ -193,7 +196,7 @@ uint32_t SDL3Input::ConvertSDLKeyToGeneric(SDL_Keycode sdl_key)
     }
 }
 
-void SDL3Input::RegisterEventCallback(const InputEventCallback& callback)
+void SDL3Input::RegisterEventCallback(const DekiInput::InputEventCallback& callback)
 {
     m_EventCallbacks.push_back(callback);
 }
@@ -224,3 +227,5 @@ bool SDL3Input::CheckForQuit() const
 {
     return m_QuitFlag;
 }
+
+}  // namespace DekiSdl3

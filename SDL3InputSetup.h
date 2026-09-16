@@ -4,6 +4,9 @@
 #include <deki/reflection/Property.h>
 #include "SDL3Package.h"
 
+namespace DekiSdl3
+{
+
 /**
  * @brief Component to configure and initialize SDL3 keyboard/mouse input
  *
@@ -13,6 +16,7 @@
  */
 DEKI_CATEGORY("SDL3")
 DEKI_DESCRIPTION("Feeds desktop keyboard and mouse input to the engine.")
+DEKI_FORMER_NAME("SDL3InputSetup")
 class DEKI_SDL3_API SDL3InputSetup : public Deki::SetupComponent
 {
 public:
@@ -30,3 +34,5 @@ public:
 };
 
 // Generated property metadata
+
+}  // namespace DekiSdl3

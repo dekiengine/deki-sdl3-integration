@@ -5,6 +5,9 @@
 #include <deki/reflection/Property.h>
 #include "SDL3Package.h"
 
+namespace DekiSdl3
+{
+
 /**
  * @brief Component to configure and initialize an SDL3 display window
  *
@@ -15,6 +18,7 @@
  */
 DEKI_CATEGORY("SDL3")
 DEKI_DESCRIPTION("Opens the desktop window the game renders into.")
+DEKI_FORMER_NAME("SDL3DisplaySetup")
 class DEKI_SDL3_API SDL3DisplaySetup : public Deki::SetupComponent
 {
 public:
@@ -39,3 +43,5 @@ public:
 };
 
 // Generated property metadata
+
+}  // namespace DekiSdl3

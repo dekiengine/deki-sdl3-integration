@@ -2,12 +2,18 @@
 #include <deki/LogSystem.h>
 
 #if !defined(DEKI_EDITOR) && defined(DEKI_PACKAGE_SDL3)
-
 #include "SDL3Input.h"
 #include "DekiInput.h"  // from deki-input
 #include "DekiInputInit.h"  // DekiInput_InitSystem (from deki-input)
 #include <deki/Engine.h>
 #include <deki/providers/IInputSystem.h>
+#endif
+
+namespace DekiSdl3
+{
+
+#if !defined(DEKI_EDITOR) && defined(DEKI_PACKAGE_SDL3)
+
 
 void SDL3InputSetup::Setup(SetupCallback onComplete)
 {
@@ -44,3 +50,5 @@ void SDL3InputSetup::Setup(SetupCallback onComplete)
 }
 
 #endif
+
+}  // namespace DekiSdl3

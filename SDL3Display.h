@@ -5,6 +5,9 @@
 
 #include <deki/providers/IDisplay.h>
 
+namespace DekiSdl3
+{
+
 /**
  * @brief SDL3 implementation of display interface
  */
@@ -65,3 +68,5 @@ class SDL3Display : public Deki::IDisplay
     // Clear, draw the game texture and the overlay, present the window.
     void DrawWindow();
 };
+
+}  // namespace DekiSdl3

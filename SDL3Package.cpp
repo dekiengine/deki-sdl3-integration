@@ -17,15 +17,24 @@
 #include <deki/reflection/ComponentRegistry.h>
 #include <deki/reflection/ComponentFactory.h>
 
-#ifdef DEKI_EDITOR
-
-// Auto-generated registration helpers
 extern void DekiSDL3_RegisterComponents();
 extern int DekiSDL3_GetAutoComponentCount();
 extern const Deki::ComponentMeta* DekiSDL3_GetAutoComponentMeta(int index);
 
+namespace DekiSdl3
+{
+
+#ifdef DEKI_EDITOR
+
+// Auto-generated registration helpers
+
 // Track if already registered to avoid duplicates
 static bool s_SDL3Registered = false;
+
+
+// The exports below are C symbols at global scope; the package's own
+// registration helpers and statics live in its namespace.
+using namespace DekiSdl3;
 
 extern "C" {
 
@@ -35,13 +44,13 @@ extern "C" {
 DEKI_SDL3_API int DekiSDL3_EnsureRegistered(void)
 {
     if (s_SDL3Registered)
-        return DekiSDL3_GetAutoComponentCount();
+        return ::DekiSDL3_GetAutoComponentCount();
     s_SDL3Registered = true;
 
     // Auto-generated: registers all SDL3 components with ComponentRegistry + ComponentFactory
-    DekiSDL3_RegisterComponents();
+    ::DekiSDL3_RegisterComponents();
 
-    return DekiSDL3_GetAutoComponentCount();
+    return ::DekiSDL3_GetAutoComponentCount();
 }
 
 // =============================================================================
@@ -50,7 +59,7 @@ DEKI_SDL3_API int DekiSDL3_EnsureRegistered(void)
 
 DEKI_PLUGIN_API const char* DekiPlugin_GetName(void)
 {
-    return "Deki SDL3 Package";
+    return "DekiRendering::Deki SDL3 Package";
 }
 
 DEKI_PLUGIN_API const char* DekiPlugin_GetVersion(void)
@@ -75,12 +84,12 @@ DEKI_PLUGIN_API void DekiPlugin_Shutdown(void)
 
 DEKI_PLUGIN_API int DekiPlugin_GetComponentCount(void)
 {
-    return DekiSDL3_GetAutoComponentCount();
+    return ::DekiSDL3_GetAutoComponentCount();
 }
 
 DEKI_PLUGIN_API const Deki::ComponentMeta* DekiPlugin_GetComponentMeta(int index)
 {
-    return DekiSDL3_GetAutoComponentMeta(index);
+    return ::DekiSDL3_GetAutoComponentMeta(index);
 }
 
 DEKI_PLUGIN_API void DekiPlugin_RegisterComponents(void)
@@ -101,8 +110,10 @@ DEKI_SDL3_API const char* DekiSDL3_GetName(void)
 
 #else // !DEKI_EDITOR - Runtime registration
 
-// Component registration happens via the auto-generated DekiSDL3_RegisterComponents(),
+// Component registration happens via the auto-generated ::DekiSDL3_RegisterComponents(),
 // called from deki_register_project_packages(). Display/input run as boot SetupComponents,
 // and the SDL3 time provider is registered by a static initializer in SDL3Display.cpp.
 
 #endif // DEKI_EDITOR
+}  // namespace DekiSdl3
+

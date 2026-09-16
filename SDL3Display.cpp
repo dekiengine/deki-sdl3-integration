@@ -8,6 +8,9 @@
 #include <deki/Time.h>
 #include "SDL3TimeProvider.h"
 
+namespace DekiSdl3
+{
+
 namespace {
 // SDL3 supplies the engine's time source (SDL_GetTicks). Register it via a static
 // initializer so Deki::Time has a provider before main()/Deki::Engine::Initialize().
@@ -55,7 +58,7 @@ bool SDL3Display::Initialize(int32_t width, int32_t height)
     }
 
     // Create SDL window at native resolution
-    window = SDL_CreateWindow("Deki", width, height, 0);
+    window = SDL_CreateWindow("DekiRendering::Deki", width, height, 0);
     if (window == nullptr)
     {
         DEKI_LOG_ERROR("SDL_CreateWindow failed: %s", SDL_GetError());
@@ -442,3 +445,5 @@ void SDL3Display::ClearActiveUIOverlay()
         Deki::Memory::Free(clear_buffer);
     }
 }
+
+}  // namespace DekiSdl3

@@ -7,14 +7,17 @@
 
 #include "IDekiInput.h"  // from deki-input
 
+namespace DekiSdl3
+{
+
 /**
  * @brief SDL3 implementation of input interface
  */
-class SDL3Input : public IDekiInput
+class SDL3Input : public DekiInput::IDekiInput
 {
    private:
     bool initialized;
-    std::vector<InputEventCallback> m_EventCallbacks;
+    std::vector<DekiInput::InputEventCallback> m_EventCallbacks;
     bool m_QuitFlag;  // Added to handle quit events properly
 
     // Key state tracking
@@ -26,18 +29,18 @@ class SDL3Input : public IDekiInput
 
     // Internal methods
     void ProcessSDLEvent(const SDL_Event& event);
-    void NotifyCallbacks(const InputEvent& event);
+    void NotifyCallbacks(const DekiInput::InputEvent& event);
     uint32_t ConvertSDLKeyToGeneric(SDL_Keycode sdl_key);
 
    public:
     SDL3Input();
     virtual ~SDL3Input();
 
-    // IDekiInput interface
+    // DekiInput::IDekiInput interface
     bool Initialize() override;
     void Shutdown() override;
     void Update() override;
-    void RegisterEventCallback(const InputEventCallback& callback) override;
+    void RegisterEventCallback(const DekiInput::InputEventCallback& callback) override;
     bool IsInitialized() const override;
     bool GetPointerPosition(int32_t* x, int32_t* y) const override;
     bool IsKeyPressed(uint32_t key) const override;
@@ -45,3 +48,5 @@ class SDL3Input : public IDekiInput
     // SDL3-specific methods
     bool CheckForQuit() const;
 };
+
+}  // namespace DekiSdl3
