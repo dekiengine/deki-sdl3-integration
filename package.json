@@ -1,5 +1,5 @@
 {
-  "id": "deki-sdl3",
+  "id": "deki-sdl3-integration",
   "displayName": "SDL3 Integration",
   "minEngine": "0.15.0",
   "buildDefine": "DEKI_PACKAGE_SDL3",
