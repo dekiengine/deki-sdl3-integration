@@ -10,6 +10,13 @@ alongside one that has them.
 
 ## 0.16.0
 
+### Fixed
+- The input setup compiles in a runtime build. It calls into deki-input, whose
+  namespace shares its name with its class, so a bare `DekiInput::` finds the
+  namespace and not the class that owns `SetInput`. This code sits behind
+  `#if !defined(DEKI_EDITOR)`, so the editor-side package compile check never
+  saw it and only a simulator or firmware build did.
+
 ### Changed
 - **Moved into the `DekiSdl3` namespace.** Every component was declared at global
   scope, which made its identity a bare class name — the name a scene file
