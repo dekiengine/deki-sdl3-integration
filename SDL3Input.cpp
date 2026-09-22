@@ -1,4 +1,5 @@
 #include "SDL3Input.h"
+#include "Keys.h"  // from deki-input
 
 #include <deki/Engine.h>
 #include <deki/providers/IRenderSystem.h>
@@ -163,30 +164,28 @@ void SDL3Input::NotifyCallbacks(const DekiInput::InputEvent& event)
 
 uint32_t SDL3Input::ConvertSDLKeyToGeneric(SDL_Keycode sdl_key)
 {
-    const uint32_t KEY_ENTER = 13;
-    const uint32_t KEY_ESC = 27;
-    const uint32_t KEY_BACKSPACE = 8;
-    const uint32_t KEY_UP = 1001;
-    const uint32_t KEY_DOWN = 1002;
-    const uint32_t KEY_LEFT = 1003;
-    const uint32_t KEY_RIGHT = 1004;
+    namespace Keys = DekiInput::Keys;
 
     switch (sdl_key)
     {
         case SDLK_RETURN:
-            return KEY_ENTER;
+            return Keys::Enter;
         case SDLK_ESCAPE:
-            return KEY_ESC;
+            return Keys::Esc;
         case SDLK_BACKSPACE:
-            return KEY_BACKSPACE;
+            return Keys::Backspace;
+        case SDLK_TAB:
+            return Keys::Tab;
+        case SDLK_DELETE:
+            return Keys::Delete;
         case SDLK_UP:
-            return KEY_UP;
+            return Keys::Up;
         case SDLK_DOWN:
-            return KEY_DOWN;
+            return Keys::Down;
         case SDLK_LEFT:
-            return KEY_LEFT;
+            return Keys::Left;
         case SDLK_RIGHT:
-            return KEY_RIGHT;
+            return Keys::Right;
         default:
             if (sdl_key >= 32 && sdl_key <= 126)
             {

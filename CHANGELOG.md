@@ -8,6 +8,12 @@ breaking change bumps the minor across the editor, the engine and every
 package together, so a package with no changes of its own is still released
 alongside one that has them.
 
+## Unreleased
+
+### Changed
+- Key ids come from deki-input's `Keys.h` instead of a copy of the numbers
+  here. Tab and Delete are reported now; they used to be dropped.
+
 ## 0.16.0
 
 ### Fixed
