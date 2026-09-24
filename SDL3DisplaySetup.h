@@ -9,10 +9,12 @@ namespace DekiSdl3
 {
 
 /**
- * @brief Component to configure and initialize an SDL3 display window
+ * @brief Opens the desktop window that stands in for a device's screen.
  *
- * Add this component to your boot scene to set up an SDL3 window.
- * Configure the window dimensions and scale in the Inspector.
+ * The screen it emulates is the target platform's (screenWidth x screenHeight,
+ * compiled in as DEKI_SCREEN_WIDTH/HEIGHT by the simulator build); the game
+ * renders at exactly that size, as it would on the device. The window shows it
+ * at a whole-number scale.
  *
  * Inherits from SetupComponent to participate in boot sequence.
  */
@@ -24,17 +26,7 @@ class DEKI_SDL3_API SDL3DisplaySetup : public Deki::SetupComponent
 public:
 
     DEKI_EXPORT
-    DEKI_TOOLTIP("Window width in pixels")
-    DEKI_RANGE(64, 3840)
-    int32_t windowWidth = 320;
-
-    DEKI_EXPORT
-    DEKI_TOOLTIP("Window height in pixels")
-    DEKI_RANGE(64, 2160)
-    int32_t windowHeight = 240;
-
-    DEKI_EXPORT
-    DEKI_TOOLTIP("Window scale multiplier")
+    DEKI_TOOLTIP("How many window pixels show one screen pixel. The screen's size is the target platform's.")
     DEKI_RANGE(1, 8)
     int32_t windowScale = 2;
 

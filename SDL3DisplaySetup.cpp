@@ -16,16 +16,19 @@ namespace DekiSdl3
 // File-scope unique_ptr keeps it alive for the program's lifetime.
 static std::unique_ptr<SDL3Display> s_SDL3Display;
 
+#if !defined(DEKI_SCREEN_WIDTH) || !defined(DEKI_SCREEN_HEIGHT)
+#error "The simulator emulates the target platform's screen: its build must define DEKI_SCREEN_WIDTH and DEKI_SCREEN_HEIGHT (the platform's screenWidth/screenHeight)."
+#endif
+
 void SDL3DisplaySetup::Setup(SetupCallback onComplete)
 {
-    int32_t scaled_width = windowWidth * windowScale;
-    int32_t scaled_height = windowHeight * windowScale;
-
-    DEKI_LOG_INFO("SDL3DisplaySetup: Creating SDL3 display (%dx%d, scale=%d)",
-                  windowWidth, windowHeight, windowScale);
+    DEKI_LOG_INFO("SDL3DisplaySetup: Creating SDL3 display (%dx%d screen, window x%d)",
+                  (int)DEKI_SCREEN_WIDTH, (int)DEKI_SCREEN_HEIGHT, (int)windowScale);
 
     s_SDL3Display = std::make_unique<SDL3Display>();
-    if (s_SDL3Display && s_SDL3Display->Initialize(scaled_width, scaled_height))
+    if (s_SDL3Display)
+        s_SDL3Display->SetWindowScale(windowScale);
+    if (s_SDL3Display && s_SDL3Display->Initialize(DEKI_SCREEN_WIDTH, DEKI_SCREEN_HEIGHT))
     {
         Deki::Engine::GetInstance().SetDisplay(s_SDL3Display.get(), "SDL3");
         DEKI_LOG_INFO("SDL3DisplaySetup: Display initialized successfully");

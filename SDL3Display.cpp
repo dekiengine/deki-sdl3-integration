@@ -57,8 +57,8 @@ bool SDL3Display::Initialize(int32_t width, int32_t height)
         return false;
     }
 
-    // Create SDL window at native resolution
-    window = SDL_CreateWindow("Deki", width, height, 0);
+    // The window shows the emulated screen at a whole-number scale.
+    window = SDL_CreateWindow("Deki", width * m_WindowScale, height * m_WindowScale, 0);
     if (window == nullptr)
     {
         DEKI_LOG_ERROR("SDL_CreateWindow failed: %s", SDL_GetError());
@@ -79,8 +79,9 @@ bool SDL3Display::Initialize(int32_t width, int32_t height)
         return false;
     }
 
-    // Set nearest neighbor scaling (pixelated, like ESP32)
-    SDL_SetRenderLogicalPresentation(renderer, width, height, SDL_LOGICAL_PRESENTATION_LETTERBOX);
+    // Draw at the screen's own size and let SDL scale it up to the window by a
+    // whole number (nearest neighbour, pixelated like a device panel).
+    SDL_SetRenderLogicalPresentation(renderer, width, height, SDL_LOGICAL_PRESENTATION_INTEGER_SCALE);
 
     // No vsync. A vsync-locked present blocks indefinitely when the window stops
     // receiving vblanks (occluded / not foreground) — that was the ~5-8s "hang".
@@ -91,7 +92,7 @@ bool SDL3Display::Initialize(int32_t width, int32_t height)
     m_UiOverlayTexture = nullptr;
 
     initialized = true;
-    DEKI_LOG_INTERNAL("SDL3 display initialized with resolution %dx%d", width, height);
+    DEKI_LOG_INTERNAL("SDL3 display initialized: %dx%d screen, window x%d", width, height, (int)m_WindowScale);
 
     return true;
 }

@@ -23,6 +23,8 @@ class SDL3Display : public Deki::IDisplay
     int32_t m_DisplayHeight;
     bool initialized;
 
+    int32_t m_WindowScale = 1;
+
     // Game texture cache variables
     int last_fb_width, last_fb_height;
 
@@ -35,7 +37,12 @@ class SDL3Display : public Deki::IDisplay
     SDL3Display();
     virtual ~SDL3Display();
 
-    // IPlatformDisplay interface
+    // Window pixels per screen pixel. Set before Initialize; 1 by default.
+    void SetWindowScale(int32_t scale) { m_WindowScale = scale > 0 ? scale : 1; }
+
+    // IPlatformDisplay interface. width x height is the emulated screen: what
+    // GetDisplaySize reports and the framebuffer is sized to. The window is
+    // that times the window scale, with whole-pixel upscaling.
     bool Initialize(int32_t width, int32_t height) override;
     void Shutdown() override;
     void Present(const uint8_t* framebuffer, int width, int height, Deki::ColorFormat format) override;
