@@ -24,6 +24,7 @@ class SDL3Display : public Deki::IDisplay
     bool initialized;
 
     int32_t m_WindowScale = 1;
+    Deki::ColorFormat m_Format = Deki::ColorFormat::RGB565;
 
     // Game texture cache variables
     int last_fb_width, last_fb_height;
@@ -39,6 +40,8 @@ class SDL3Display : public Deki::IDisplay
 
     // Window pixels per screen pixel. Set before Initialize; 1 by default.
     void SetWindowScale(int32_t scale) { m_WindowScale = scale > 0 ? scale : 1; }
+    // The emulated screen's pixel format. Set before Initialize.
+    void SetColorFormat(Deki::ColorFormat format) { m_Format = format; }
 
     // IPlatformDisplay interface. width x height is the emulated screen: what
     // GetDisplaySize reports and the framebuffer is sized to. The window is
@@ -50,6 +53,7 @@ class SDL3Display : public Deki::IDisplay
     void PresentRegions(const uint8_t* framebuffer, int width, int height, Deki::ColorFormat format,
                         const Deki::Rect* rects, int32_t count) override;
     void GetDisplaySize(int32_t* width, int32_t* height) const override;
+    Deki::ColorFormat GetColorFormat() const override { return m_Format; }
     bool IsInitialized() const override;
     void RequestFullRefresh() override;
     bool ProcessEvents() override;

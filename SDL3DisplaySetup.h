@@ -11,9 +11,10 @@ namespace DekiSdl3
 /**
  * @brief Opens the desktop window that stands in for a device's screen.
  *
- * The screen it emulates is the target platform's (screenWidth x screenHeight,
- * compiled in as DEKI_SCREEN_WIDTH/HEIGHT by the simulator build); the game
- * renders at exactly that size, as it would on the device. The window shows it
+ * The screen it emulates is the target platform's (screenWidth x screenHeight
+ * and colorFormat, compiled in as DEKI_SCREEN_WIDTH/HEIGHT/COLOR_FORMAT by the
+ * simulator build); the game renders at exactly that size and format, as it
+ * would on the device. The window shows it
  * at a whole-number scale.
  *
  * Inherits from SetupComponent to participate in boot sequence.

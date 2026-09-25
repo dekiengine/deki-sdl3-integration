@@ -11,12 +11,12 @@ alongside one that has them.
 ## Unreleased
 
 ### Changed
+- The simulator window emulates the platform's pixel format too
+  (`DEKI_SCREEN_COLOR_FORMAT`), which the display reports to the engine.
 - The simulator window emulates the target platform's screen
   (`DEKI_SCREEN_WIDTH` x `DEKI_SCREEN_HEIGHT`) at a whole-number
   `windowScale`; `windowWidth` and `windowHeight` are gone. The display reports
   the screen's size, which is what the engine sizes the framebuffer to.
-
-### Changed
 - Key ids come from deki-input's `Keys.h` instead of a copy of the numbers
   here. Tab and Delete are reported now; they used to be dropped.
 
