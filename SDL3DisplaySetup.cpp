@@ -34,7 +34,6 @@ void SDL3DisplaySetup::Setup(SetupCallback onComplete)
     if (s_SDL3Display && s_SDL3Display->Initialize(DEKI_SCREEN_WIDTH, DEKI_SCREEN_HEIGHT))
     {
         Deki::Engine::GetInstance().SetDisplay(s_SDL3Display.get(), "SDL3");
-        DEKI_LOG_INFO("SDL3DisplaySetup: Display initialized successfully");
         onComplete(true);
     }
     else

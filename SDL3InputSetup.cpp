@@ -39,7 +39,6 @@ void SDL3InputSetup::Setup(SetupCallback onComplete)
         // it that way and the package keeps it outside its namespace to match.
         DekiInput_InitSystem();
 
-        DEKI_LOG_INFO("SDL3InputSetup: Input initialized successfully");
         onComplete(true);
     }
     else
