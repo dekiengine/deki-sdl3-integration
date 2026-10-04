@@ -10,24 +10,19 @@
 namespace DekiSdl3
 {
 
-/**
- * @brief SDL3 implementation of input interface
- */
+/// Keyboard and mouse input through SDL3.
 class SDL3Input : public DekiInput::IDekiInput
 {
 private:
     bool initialized;
     std::vector<DekiInput::InputEventCallback> m_EventCallbacks;
-    bool m_QuitFlag;  // Added to handle quit events properly
+    bool m_QuitFlag;  // Set when SDL reports a quit event
 
-    // Key state tracking
     std::unordered_map<uint32_t, bool> m_KeyStates;
 
-    // Mouse state
     int32_t m_MouseX, m_MouseY;
     bool m_MousePressed;
 
-    // Internal methods
     void ProcessSDLEvent(const SDL_Event& event);
     void NotifyCallbacks(const DekiInput::InputEvent& event);
     uint32_t ConvertSDLKeyToGeneric(SDL_Keycode sdlKey);
@@ -45,7 +40,7 @@ public:
     bool GetPointerPosition(int32_t* x, int32_t* y) const override;
     bool IsKeyPressed(uint32_t key) const override;
 
-    // SDL3-specific methods
+    /// True once SDL has reported a quit event (the window was closed).
     bool CheckForQuit() const;
 };
 

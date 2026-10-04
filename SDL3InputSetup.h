@@ -7,13 +7,8 @@
 namespace DekiSdl3
 {
 
-/**
- * @brief Component to configure and initialize SDL3 keyboard/mouse input
- *
- * Add this component to your boot scene to enable SDL3 input.
- *
- * Inherits from SetupComponent to participate in boot sequence.
- */
+/// Starts SDL3 keyboard and mouse input. Add it to the boot scene; it runs as
+/// part of the boot sequence.
 DEKI_CATEGORY("SDL3")
 DEKI_DESCRIPTION("Feeds desktop keyboard and mouse input to the engine.")
 DEKI_FORMER_NAME("SDL3InputSetup")
@@ -31,7 +26,5 @@ public:
     void Setup(SetupCallback onComplete) override;
     const char* GetSetupName() const override { return "SDL3 Input"; }
 };
-
-// Generated property metadata
 
 }  // namespace DekiSdl3

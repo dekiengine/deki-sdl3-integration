@@ -9,11 +9,11 @@ namespace DekiSdl3
 
 namespace
 {
-// Mouse events arrive in window pixels, but the engine's screen->world math expects
-// framebuffer pixels. The desktop window is created larger than the framebuffer
-// (windowScale), so scale window coords down to framebuffer coords before dispatch.
-// Window and framebuffer share an aspect ratio (window = framebuffer * scale), so a
-// straight ratio is exact with no letterbox offset to account for.
+// Mouse events arrive in window pixels, but the engine's screen-to-world math
+// expects framebuffer pixels. The window is larger than the framebuffer by
+// windowScale, so coordinates are scaled down before dispatch. Window and
+// framebuffer share an aspect ratio, so a straight ratio is exact, with no
+// letterbox offset.
 void WindowToFramebuffer(SDL_WindowID windowID, float& x, float& y)
 {
     SDL_Window* window = SDL_GetWindowFromID(windowID);

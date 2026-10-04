@@ -11,8 +11,8 @@ namespace DekiSdl3
 
 #if !defined(DEKI_EDITOR) && defined(DEKI_PACKAGE_SDL3)
 
-// Package owns the SDL3Display lifetime now (engine-core just holds the pointer).
-// File-scope unique_ptr keeps it alive for the program's lifetime.
+// The package owns the display and keeps it for the whole program; the engine
+// only holds a pointer to it.
 static std::unique_ptr<SDL3Display> s_SDL3Display;
 
 #if !defined(DEKI_SCREEN_WIDTH) || !defined(DEKI_SCREEN_HEIGHT) || !defined(DEKI_SCREEN_COLOR_FORMAT)
@@ -48,7 +48,7 @@ void SDL3DisplaySetup::Setup(SetupCallback onComplete)
 
 void SDL3DisplaySetup::Setup(SetupCallback onComplete)
 {
-    // Editor/ESP32: SDL3 display not applicable
+    // The editor and device builds have no SDL3 window to open.
     onComplete(true);
 }
 

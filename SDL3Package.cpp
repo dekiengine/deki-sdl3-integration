@@ -1,14 +1,9 @@
-/**
- * @file SDL3Package.cpp
- * @brief Package entry point for deki-sdl3 DLL
- *
- * This file exports the standard Deki plugin interface so the editor
- * can load deki-sdl3.dll and discover available SDL3 components.
- *
- * Display and input are set up by their SetupComponents; the SDL3 time provider
- * is registered in SDL3Display.cpp. The desktop program entry (main) and the
- * memory/filesystem HAL live in the deki-desktop-integration package.
- */
+// Package entry point for the deki-sdl3 DLL. Exports the standard Deki plugin
+// interface, so the editor can load the DLL and find its components.
+//
+// Display and input are set up by their SetupComponents; the SDL3 time
+// provider is registered in SDL3Display.cpp. The desktop main() and the
+// memory and filesystem layers live in the deki-desktop-integration package.
 
 #include "SDL3Package.h"
 #include <deki/interop/Plugin.h>
@@ -26,9 +21,6 @@ namespace DekiSdl3
 
 #ifdef DEKI_EDITOR
 
-// Auto-generated registration helpers
-
-// Track if already registered to avoid duplicates
 static bool s_SDL3Registered = false;
 
 // The exports below are C symbols at global scope; the package's own
@@ -37,9 +29,7 @@ using namespace DekiSdl3;
 
 extern "C"
 {
-    /**
-     * @brief Ensure deki-sdl3 package is loaded and components are registered
-     */
+    // Registers the package's components once. Returns how many there are.
     DEKI_SDL3_API int DekiSDL3EnsureRegistered(void)
     {
         if (s_SDL3Registered)
@@ -48,14 +38,14 @@ extern "C"
         }
         s_SDL3Registered = true;
 
-        // Auto-generated: registers all SDL3 components with ComponentRegistry + ComponentFactory
+        // Generated: registers every SDL3 component with ComponentRegistry and ComponentFactory.
         ::DekiSDL3RegisterComponents();
 
         return ::DekiSDL3GetAutoComponentCount();
     }
 
     // =============================================================================
-    // Plugin metadata (for dynamic loading compatibility)
+    // Plugin metadata
     // =============================================================================
 
     DEKI_PLUGIN_API const char* DekiPluginGetName(void)
@@ -99,7 +89,7 @@ extern "C"
     }
 
     // =============================================================================
-    // Package-specific feature API (for linked DLL access without name conflicts)
+    // Package-specific API, with names that do not clash when DLLs link each other
     // =============================================================================
 
     DEKI_SDL3_API const char* DekiSDL3GetName(void)
@@ -111,9 +101,10 @@ extern "C"
 
 #else  // !DEKI_EDITOR - Runtime registration
 
-// Component registration happens via the auto-generated ::DekiSDL3RegisterComponents(),
-// called from DekiRegisterProjectPackages(). Display/input run as boot SetupComponents,
-// and the SDL3 time provider is registered by a static initializer in SDL3Display.cpp.
+// Components are registered by the generated ::DekiSDL3RegisterComponents(),
+// called from DekiRegisterProjectPackages(). Display and input run as boot
+// SetupComponents, and a static initializer in SDL3Display.cpp registers the
+// SDL3 time provider.
 
 #endif  // DEKI_EDITOR
 }  // namespace DekiSdl3

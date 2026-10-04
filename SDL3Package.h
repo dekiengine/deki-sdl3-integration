@@ -1,15 +1,8 @@
 #pragma once
 
-/**
- * @file SDL3Package.h
- * @brief Central header for the Deki SDL3 Package
- *
- * This package provides SDL3-specific components:
- * - Display setup (SDL3 window creation and rendering)
- * - Input setup (keyboard and mouse input)
- */
+// Main header of the SDL3 package. The package provides display setup (an SDL3
+// window and its rendering) and input setup (keyboard and mouse).
 
-// DLL export macro
 #ifdef _WIN32
 #ifdef DEKI_SDL3_EXPORTS
 #define DEKI_SDL3_API __declspec(dllexport)

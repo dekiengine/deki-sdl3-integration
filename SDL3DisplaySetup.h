@@ -8,17 +8,11 @@
 namespace DekiSdl3
 {
 
-/**
- * @brief Opens the desktop window that stands in for a device's screen.
- *
- * The screen it emulates is the target platform's (screenWidth x screenHeight
- * and colorFormat, compiled in as DEKI_SCREEN_WIDTH/HEIGHT/COLOR_FORMAT by the
- * simulator build); the game renders at exactly that size and format, as it
- * would on the device. The window shows it
- * at a whole-number scale.
- *
- * Inherits from SetupComponent to participate in boot sequence.
- */
+/// Opens the desktop window that stands in for a device's screen. The screen
+/// is the target platform's: the simulator build compiles in its size and
+/// colour format as DEKI_SCREEN_WIDTH/HEIGHT/COLOR_FORMAT, and the game renders
+/// at exactly that, as on the device. The window shows it at a whole-number
+/// scale. Runs as part of the boot sequence.
 DEKI_CATEGORY("SDL3")
 DEKI_DESCRIPTION("Opens the desktop window the game renders into.")
 DEKI_FORMER_NAME("SDL3DisplaySetup")
@@ -33,7 +27,5 @@ public:
     void Setup(SetupCallback onComplete) override;
     const char* GetSetupName() const override { return "SDL3 Display"; }
 };
-
-// Generated property metadata
 
 }  // namespace DekiSdl3

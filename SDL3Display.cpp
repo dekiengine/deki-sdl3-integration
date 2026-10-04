@@ -13,10 +13,10 @@ namespace DekiSdl3
 
 namespace
 {
-// SDL3 supplies the engine's time source (SDL_GetTicks). Register it via a static
-// initializer so Deki::Time has a provider before main()/Deki::Engine::Initialize().
-// (This was previously in SDL3Package.cpp, which is the package's DLL/editor entry and
-// is excluded from the static simulator link.)
+// SDL3 supplies the engine's time source (SDL_GetTicks). A static initializer
+// registers it, so Deki::Time has a provider before main() and
+// Deki::Engine::Initialize(). It must live here, not in SDL3Package.cpp: that
+// file is the package's DLL entry and is left out of the static simulator link.
 struct SDL3TimeInit
 {
     SDL3TimeInit() { Deki::Time::SetTimeProvider(std::make_unique<SDL3TimeProvider>()); }
@@ -52,7 +52,6 @@ bool SDL3Display::Initialize(int32_t width, int32_t height)
     m_DisplayWidth = width;
     m_DisplayHeight = height;
 
-    // Initialize SDL
     if (!SDL_Init(SDL_INIT_VIDEO))
     {
         DEKI_LOG_ERROR("SDL_Init failed: %s", SDL_GetError());
@@ -68,10 +67,10 @@ bool SDL3Display::Initialize(int32_t width, int32_t height)
         return false;
     }
 
-    // Create SDL renderer. Force the OpenGL backend: SDL's default on Windows is
-    // Direct3D11, whose DXGI present blocks indefinitely a few seconds in on this
-    // Intel iGPU (the main thread hangs deep in dxgi.dll!Present). The editor runs
-    // SDL3+OpenGL reliably on the same machine, so OpenGL is the safe backend.
+    // Must use the OpenGL backend. SDL's default on Windows is Direct3D11, whose
+    // DXGI present can block forever a few seconds in on Intel integrated GPUs
+    // (the main thread hangs in dxgi.dll!Present). SDL3 with OpenGL works on the
+    // same machines.
     renderer = SDL_CreateRenderer(window, "opengl");
     if (renderer == nullptr)
     {
@@ -85,12 +84,12 @@ bool SDL3Display::Initialize(int32_t width, int32_t height)
     // whole number (nearest neighbour, pixelated like a device panel).
     SDL_SetRenderLogicalPresentation(renderer, width, height, SDL_LOGICAL_PRESENTATION_INTEGER_SCALE);
 
-    // No vsync. A vsync-locked present blocks indefinitely when the window stops
-    // receiving vblanks (occluded / not foreground) — that was the ~5-8s "hang".
-    // The engine's own frame limiter (Deki::Time::Delay / target FPS) paces frames.
+    // No vsync: a vsync-locked present blocks for seconds when the window stops
+    // getting vblanks (hidden or in the background). The engine's own frame
+    // limiter (Deki::Time::Delay and the target FPS) paces frames.
     SDL_SetRenderVSync(renderer, 0);
 
-    // Initialize UI overlay texture (will be created on demand)
+    // The UI overlay texture is created on demand.
     m_UiOverlayTexture = nullptr;
 
     initialized = true;
@@ -149,7 +148,6 @@ bool SDL3Display::EnsureGameTexture(int width, int height, Deki::ColorFormat for
         m_GameTexture = nullptr;
     }
 
-    // Choose SDL pixel format based on GameEngine format
     SDL_PixelFormat sdlFormat;
     switch (format)
     {
@@ -160,8 +158,8 @@ bool SDL3Display::EnsureGameTexture(int width, int height, Deki::ColorFormat for
     }
 
     m_GameTexture = SDL_CreateTexture(renderer, sdlFormat, SDL_TEXTUREACCESS_STREAMING, width, height);
-    // Force nearest-neighbor sampling so logical→window upscale stays
-    // pixel-perfect (SDL3 default is linear, which would blur sprites).
+    // Nearest-neighbour sampling keeps the upscale to the window pixel-perfect;
+    // SDL3's default is linear, which blurs sprites.
     if (m_GameTexture)
     {
         SDL_SetTextureScaleMode(m_GameTexture, SDL_SCALEMODE_NEAREST);
@@ -174,7 +172,6 @@ bool SDL3Display::EnsureGameTexture(int width, int height, Deki::ColorFormat for
 
 void SDL3Display::DrawWindow()
 {
-    // Clear with black background first
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
 
@@ -183,13 +180,11 @@ void SDL3Display::DrawWindow()
         SDL_RenderTexture(renderer, m_GameTexture, nullptr, nullptr);
     }
 
-    // Render UI overlay on top if active
     if (m_UiOverlayTexture)
     {
         SDL_RenderTexture(renderer, m_UiOverlayTexture, nullptr, nullptr);
     }
 
-    // Present the frame
     SDL_RenderPresent(renderer);
 }
 
@@ -200,25 +195,22 @@ void SDL3Display::Present(const uint8_t* framebuffer, int width, int height, Dek
         return;
     }
 
-    // Render GameEngine framebuffer if available
     if (framebuffer)
     {
         EnsureGameTexture(width, height, format);
 
-        // Update texture with framebuffer data
         if (m_GameTexture)
         {
             void* pixels;
             int pitch;
             if (SDL_LockTexture(m_GameTexture, nullptr, &pixels, &pitch))
             {
-                // Calculate bytes per pixel based on format
                 int bytesPerPixel;
                 switch (format)
                 {
-                    case Deki::ColorFormat::RGB565: bytesPerPixel = 2; break;    // RGB565
-                    case Deki::ColorFormat::RGB888: bytesPerPixel = 3; break;    // RGB888
-                    case Deki::ColorFormat::ARGB8888: bytesPerPixel = 4; break;  // ARGB8888
+                    case Deki::ColorFormat::RGB565: bytesPerPixel = 2; break;
+                    case Deki::ColorFormat::RGB888: bytesPerPixel = 3; break;
+                    case Deki::ColorFormat::ARGB8888: bytesPerPixel = 4; break;
                     default: bytesPerPixel = 2; break;
                 }
                 memcpy(pixels, framebuffer, width * height * bytesPerPixel);
@@ -294,15 +286,13 @@ bool SDL3Display::IsInitialized() const
 
 void SDL3Display::RequestFullRefresh()
 {
-    // For now, this is a no-op since we're using continuous rendering
-    // Could be implemented to invalidate specific texture regions if needed
+    // Nothing to do: the window is redrawn in full every frame.
 }
 
 bool SDL3Display::ProcessEvents()
 {
-    // Event processing is now handled by SDL3Input via DekiInput
-    // This method just needs to return true to continue running
-    // Quit detection is handled by DekiInput::ShouldExit()
+    // SDL3Input handles events through DekiInput, and DekiInput::ShouldExit()
+    // detects quitting, so this only keeps the program running.
     return true;
 }
 
@@ -322,14 +312,12 @@ void* SDL3Display::CreateUIOverlay(int32_t width, int32_t height)
         return nullptr;
     }
 
-    // Set texture blend mode for proper transparency
     SDL_SetTextureBlendMode(overlay, SDL_BLENDMODE_BLEND);
 
-    // Clear with transparent pixels
     SDL_SetRenderTarget(renderer, overlay);
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);  // Transparent black
     SDL_RenderClear(renderer);
-    SDL_SetRenderTarget(renderer, nullptr);  // Reset to default target
+    SDL_SetRenderTarget(renderer, nullptr);  // Back to the window
 
     return overlay;
 }
@@ -362,8 +350,7 @@ bool SDL3Display::UpdateUIOverlayRGB565A8(void* overlay, int32_t x, int32_t y, i
         return false;
     }
 
-    // Convert RGB565A8 to ARGB8888 for SDL
-    // RGB565A8 format: [RGB565_low, RGB565_high, Alpha] per pixel
+    // RGB565A8 ([RGB565 low, RGB565 high, alpha] per pixel) to ARGB8888 for SDL.
     int pixelCount = width * height;
     // A whole-screen conversion scratch buffer.
     uint32_t* argb8888Buffer =
@@ -379,17 +366,15 @@ bool SDL3Display::UpdateUIOverlayRGB565A8(void* overlay, int32_t x, int32_t y, i
         uint16_t rgb565 = rgb565a8Pixels[idx] | (rgb565a8Pixels[idx + 1] << 8);
         uint8_t alpha = rgb565a8Pixels[idx + 2];
 
-        // Convert RGB565 to RGB888
         uint8_t r = ((rgb565 >> 11) & 0x1F) << 3;  // 5 bits -> 8 bits
         uint8_t g = ((rgb565 >> 5) & 0x3F) << 2;   // 6 bits -> 8 bits
         uint8_t b = (rgb565 & 0x1F) << 3;          // 5 bits -> 8 bits
 
-        // Expand to full 8-bit range (better quality)
+        // Fill the low bits so white stays full white.
         r |= r >> 5;
         g |= g >> 6;
         b |= b >> 5;
 
-        // Pack as ARGB8888
         argb8888Buffer[i] = (alpha << 24) | (r << 16) | (g << 8) | b;
     }
 
@@ -414,7 +399,6 @@ void SDL3Display::DestroyUIOverlay(void* overlay)
     {
         SDL_Texture* texture = (SDL_Texture*)overlay;
 
-        // If this is the active overlay, clear it
         if (texture == m_UiOverlayTexture)
         {
             m_UiOverlayTexture = nullptr;
@@ -436,15 +420,13 @@ void SDL3Display::ClearActiveUIOverlay()
         return;
     }
 
-    // Get texture dimensions
     float w, h;
     SDL_GetTextureSize(m_UiOverlayTexture, &w, &h);
 
-    // Create transparent pixel buffer
     int iw = (int)w, ih = (int)h;
     size_t bufferSize = iw * ih * sizeof(uint32_t);
-    // Through the engine like everything else; it already zeroes what it
-    // hands back, which is exactly what this buffer is for.
+    // The engine's allocator returns zeroed memory, which is the transparent
+    // buffer needed here.
     uint32_t* clearBuffer = (uint32_t*)Deki::Memory::Allocate(bufferSize, Deki::Memory::External);
     if (clearBuffer)
     {

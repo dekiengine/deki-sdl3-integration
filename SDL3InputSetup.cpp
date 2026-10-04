@@ -21,20 +21,18 @@ void SDL3InputSetup::Setup(SetupCallback onComplete)
     auto input = std::make_unique<SDL3Input>();
     if (input->Initialize())
     {
-        // deki-input 0.16.0 put its types in a namespace that shares its name
-        // with the class, so from outside the package the class is
-        // DekiInput::DekiInput and a bare DekiInput:: finds the namespace,
-        // where SetInput is not a member. The alias says which one is meant
-        // once, instead of repeating the doubled name at each call.
+        // deki-input's namespace and class share the name DekiInput, so a bare
+        // DekiInput:: finds the namespace, where SetInput is not a member. The
+        // alias names the class once.
         using DekiInputApi = DekiInput::DekiInput;
         DekiInputApi::SetInput(std::move(input), "SDL3");
 
-        // Ensure the input dispatch system (deki-input) is created, initialized, and
-        // registered with the engine. On editor/firmware builds the generated
-        // DekiInitPackageSystems() already does this; the static desktop sim links the
-        // engine's empty stub for that symbol, so do it here. Idempotent if already done.
-        // Global, not DekiInput::, because the editor's generated glue declares
-        // it that way and the package keeps it outside its namespace to match.
+        // Start deki-input's dispatch system and register it with the engine.
+        // Editor and firmware builds do this in the generated
+        // DekiInitPackageSystems(), but the static desktop simulator links the
+        // engine's empty stub for it, so it happens here too. Safe to repeat.
+        // Global, not DekiInput::, because the editor's generated glue
+        // declares it that way.
         DekiInputInitSystem();
 
         onComplete(true);
@@ -50,7 +48,7 @@ void SDL3InputSetup::Setup(SetupCallback onComplete)
 
 void SDL3InputSetup::Setup(SetupCallback onComplete)
 {
-    // Editor/ESP32: SDL3 input not applicable
+    // The editor and device builds take input elsewhere.
     onComplete(true);
 }
 
