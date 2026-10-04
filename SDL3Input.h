@@ -24,13 +24,13 @@ private:
     std::unordered_map<uint32_t, bool> m_KeyStates;
 
     // Mouse state
-    int32_t mouse_x, m_MouseY;
+    int32_t m_MouseX, m_MouseY;
     bool m_MousePressed;
 
     // Internal methods
     void ProcessSDLEvent(const SDL_Event& event);
     void NotifyCallbacks(const DekiInput::InputEvent& event);
-    uint32_t ConvertSDLKeyToGeneric(SDL_Keycode sdl_key);
+    uint32_t ConvertSDLKeyToGeneric(SDL_Keycode sdlKey);
 
 public:
     SDL3Input();

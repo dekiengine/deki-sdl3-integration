@@ -27,7 +27,7 @@ private:
     Deki::ColorFormat m_Format = Deki::ColorFormat::RGB565;
 
     // Game texture cache variables
-    int last_fb_width, last_fb_height;
+    int m_LastFbWidth, m_LastFbHeight;
 
     // The format the current texture was built for. Only consulted when
     // m_GameTexture is non-null, so it needs no "nothing yet" sentinel - which
@@ -63,7 +63,7 @@ public:
     bool UpdateUIOverlay(void* overlay, int32_t x, int32_t y, int32_t width, int32_t height,
                          const uint32_t* pixels) override;
     bool UpdateUIOverlayRGB565A8(void* overlay, int32_t x, int32_t y, int32_t width, int32_t height,
-                                 const uint8_t* rgb565a8_pixels) override;
+                                 const uint8_t* rgb565a8Pixels) override;
     void DestroyUIOverlay(void* overlay) override;
     void SetActiveUIOverlay(void* overlay) override;
     void ClearActiveUIOverlay() override;

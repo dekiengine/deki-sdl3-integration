@@ -48,7 +48,7 @@ void WindowToFramebuffer(SDL_WindowID windowID, float& x, float& y)
 SDL3Input::SDL3Input()
     : initialized(false),
       m_QuitFlag(false),
-      mouse_x(0),
+      m_MouseX(0),
       m_MouseY(0),
       m_MousePressed(false)
 {
@@ -90,26 +90,26 @@ void SDL3Input::Update()
 
     // Update mouse state (scale window pixels down to framebuffer pixels)
     float mx, my;
-    SDL_MouseButtonFlags mouse_state = SDL_GetMouseState(&mx, &my);
+    SDL_MouseButtonFlags mouseState = SDL_GetMouseState(&mx, &my);
     if (SDL_Window* focus = SDL_GetMouseFocus())
     {
         WindowToFramebuffer(SDL_GetWindowID(focus), mx, my);
     }
-    mouse_x = (int32_t)mx;
+    m_MouseX = (int32_t)mx;
     m_MouseY = (int32_t)my;
-    m_MousePressed = (mouse_state & SDL_BUTTON_LMASK) != 0;
+    m_MousePressed = (mouseState & SDL_BUTTON_LMASK) != 0;
 }
 
 void SDL3Input::ProcessSDLEvent(const SDL_Event& event)
 {
-    DekiInput::InputEvent input_event;
-    input_event.timestamp = static_cast<uint32_t>(SDL_GetTicks());
+    DekiInput::InputEvent inputEvent;
+    inputEvent.timestamp = static_cast<uint32_t>(SDL_GetTicks());
 
     if (event.type == SDL_EVENT_QUIT)
     {
         m_QuitFlag = true;
-        input_event.type = DekiInput::InputEventType::APP_QUIT;
-        NotifyCallbacks(input_event);
+        inputEvent.type = DekiInput::InputEventType::AppQuit;
+        NotifyCallbacks(inputEvent);
         return;
     }
 
@@ -119,10 +119,10 @@ void SDL3Input::ProcessSDLEvent(const SDL_Event& event)
         {
             float ex = event.motion.x, ey = event.motion.y;
             WindowToFramebuffer(event.motion.windowID, ex, ey);
-            input_event.type = DekiInput::InputEventType::MOUSE_MOVE;
-            input_event.x = (int32_t)ex;
-            input_event.y = (int32_t)ey;
-            NotifyCallbacks(input_event);
+            inputEvent.type = DekiInput::InputEventType::MouseMove;
+            inputEvent.x = (int32_t)ex;
+            inputEvent.y = (int32_t)ey;
+            NotifyCallbacks(inputEvent);
             break;
         }
 
@@ -130,11 +130,11 @@ void SDL3Input::ProcessSDLEvent(const SDL_Event& event)
         {
             float ex = event.button.x, ey = event.button.y;
             WindowToFramebuffer(event.button.windowID, ex, ey);
-            input_event.type = DekiInput::InputEventType::MOUSE_BUTTON_DOWN;
-            input_event.x = (int32_t)ex;
-            input_event.y = (int32_t)ey;
-            input_event.pressed = true;
-            NotifyCallbacks(input_event);
+            inputEvent.type = DekiInput::InputEventType::MouseButtonDown;
+            inputEvent.x = (int32_t)ex;
+            inputEvent.y = (int32_t)ey;
+            inputEvent.pressed = true;
+            NotifyCallbacks(inputEvent);
             break;
         }
 
@@ -142,35 +142,35 @@ void SDL3Input::ProcessSDLEvent(const SDL_Event& event)
         {
             float ex = event.button.x, ey = event.button.y;
             WindowToFramebuffer(event.button.windowID, ex, ey);
-            input_event.type = DekiInput::InputEventType::MOUSE_BUTTON_UP;
-            input_event.x = (int32_t)ex;
-            input_event.y = (int32_t)ey;
-            input_event.pressed = false;
-            NotifyCallbacks(input_event);
+            inputEvent.type = DekiInput::InputEventType::MouseButtonUp;
+            inputEvent.x = (int32_t)ex;
+            inputEvent.y = (int32_t)ey;
+            inputEvent.pressed = false;
+            NotifyCallbacks(inputEvent);
             break;
         }
 
         case SDL_EVENT_KEY_DOWN:
         {
-            uint32_t generic_key = ConvertSDLKeyToGeneric(event.key.key);
-            m_KeyStates[generic_key] = true;
+            uint32_t genericKey = ConvertSDLKeyToGeneric(event.key.key);
+            m_KeyStates[genericKey] = true;
 
-            input_event.type = DekiInput::InputEventType::KEY_DOWN;
-            input_event.key = generic_key;
-            input_event.pressed = true;
-            NotifyCallbacks(input_event);
+            inputEvent.type = DekiInput::InputEventType::KeyDown;
+            inputEvent.key = genericKey;
+            inputEvent.pressed = true;
+            NotifyCallbacks(inputEvent);
         }
         break;
 
         case SDL_EVENT_KEY_UP:
         {
-            uint32_t generic_key = ConvertSDLKeyToGeneric(event.key.key);
-            m_KeyStates[generic_key] = false;
+            uint32_t genericKey = ConvertSDLKeyToGeneric(event.key.key);
+            m_KeyStates[genericKey] = false;
 
-            input_event.type = DekiInput::InputEventType::KEY_UP;
-            input_event.key = generic_key;
-            input_event.pressed = false;
-            NotifyCallbacks(input_event);
+            inputEvent.type = DekiInput::InputEventType::KeyUp;
+            inputEvent.key = genericKey;
+            inputEvent.pressed = false;
+            NotifyCallbacks(inputEvent);
         }
         break;
     }
@@ -184,11 +184,11 @@ void SDL3Input::NotifyCallbacks(const DekiInput::InputEvent& event)
     }
 }
 
-uint32_t SDL3Input::ConvertSDLKeyToGeneric(SDL_Keycode sdl_key)
+uint32_t SDL3Input::ConvertSDLKeyToGeneric(SDL_Keycode sdlKey)
 {
     namespace Keys = DekiInput::Keys;
 
-    switch (sdl_key)
+    switch (sdlKey)
     {
         case SDLK_RETURN: return Keys::Enter;
         case SDLK_ESCAPE: return Keys::Esc;
@@ -200,9 +200,9 @@ uint32_t SDL3Input::ConvertSDLKeyToGeneric(SDL_Keycode sdl_key)
         case SDLK_LEFT: return Keys::Left;
         case SDLK_RIGHT: return Keys::Right;
         default:
-            if (sdl_key >= 32 && sdl_key <= 126)
+            if (sdlKey >= 32 && sdlKey <= 126)
             {
-                return sdl_key;
+                return sdlKey;
             }
             return 0;
     }
@@ -222,7 +222,7 @@ bool SDL3Input::GetPointerPosition(int32_t* x, int32_t* y) const
 {
     if (x)
     {
-        *x = mouse_x;
+        *x = m_MouseX;
     }
     if (y)
     {
