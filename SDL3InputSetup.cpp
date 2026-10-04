@@ -3,7 +3,7 @@
 
 #if !defined(DEKI_EDITOR) && defined(DEKI_PACKAGE_SDL3)
 #include "SDL3Input.h"
-#include "DekiInput.h"  // from deki-input
+#include "DekiInput.h"      // from deki-input
 #include "DekiInputInit.h"  // DekiInput_InitSystem (from deki-input)
 #include <deki/Engine.h>
 #include <deki/providers/IInputSystem.h>
@@ -14,11 +14,9 @@ namespace DekiSdl3
 
 #if !defined(DEKI_EDITOR) && defined(DEKI_PACKAGE_SDL3)
 
-
 void SDL3InputSetup::Setup(SetupCallback onComplete)
 {
-    DEKI_LOG_INFO("SDL3InputSetup: Initializing SDL3 input (keyboard=%d, mouse=%d)",
-                  enableKeyboard, enableMouse);
+    DEKI_LOG_INFO("SDL3InputSetup: Initializing SDL3 input (keyboard=%d, mouse=%d)", enableKeyboard, enableMouse);
 
     auto input = std::make_unique<SDL3Input>();
     if (input->Initialize())

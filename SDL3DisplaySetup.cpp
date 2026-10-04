@@ -11,19 +11,19 @@ namespace DekiSdl3
 
 #if !defined(DEKI_EDITOR) && defined(DEKI_PACKAGE_SDL3)
 
-
 // Package owns the SDL3Display lifetime now (engine-core just holds the pointer).
 // File-scope unique_ptr keeps it alive for the program's lifetime.
 static std::unique_ptr<SDL3Display> s_SDL3Display;
 
 #if !defined(DEKI_SCREEN_WIDTH) || !defined(DEKI_SCREEN_HEIGHT) || !defined(DEKI_SCREEN_COLOR_FORMAT)
-#error "The simulator emulates the target platform's screen: its build must define DEKI_SCREEN_WIDTH, DEKI_SCREEN_HEIGHT and DEKI_SCREEN_COLOR_FORMAT (the platform's screenWidth, screenHeight and colorFormat)."
+#error                                                                                                                 \
+    "The simulator emulates the target platform's screen: its build must define DEKI_SCREEN_WIDTH, DEKI_SCREEN_HEIGHT and DEKI_SCREEN_COLOR_FORMAT (the platform's screenWidth, screenHeight and colorFormat)."
 #endif
 
 void SDL3DisplaySetup::Setup(SetupCallback onComplete)
 {
-    DEKI_LOG_INFO("SDL3DisplaySetup: Creating SDL3 display (%dx%d screen, window x%d)",
-                  (int)DEKI_SCREEN_WIDTH, (int)DEKI_SCREEN_HEIGHT, (int)windowScale);
+    DEKI_LOG_INFO("SDL3DisplaySetup: Creating SDL3 display (%dx%d screen, window x%d)", (int)DEKI_SCREEN_WIDTH,
+                  (int)DEKI_SCREEN_HEIGHT, (int)windowScale);
 
     s_SDL3Display = std::make_unique<SDL3Display>();
     if (s_SDL3Display)

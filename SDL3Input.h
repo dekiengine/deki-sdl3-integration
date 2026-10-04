@@ -15,7 +15,7 @@ namespace DekiSdl3
  */
 class SDL3Input : public DekiInput::IDekiInput
 {
-   private:
+private:
     bool initialized;
     std::vector<DekiInput::InputEventCallback> m_EventCallbacks;
     bool m_QuitFlag;  // Added to handle quit events properly
@@ -32,7 +32,7 @@ class SDL3Input : public DekiInput::IDekiInput
     void NotifyCallbacks(const DekiInput::InputEvent& event);
     uint32_t ConvertSDLKeyToGeneric(SDL_Keycode sdl_key);
 
-   public:
+public:
     SDL3Input();
     virtual ~SDL3Input();
 

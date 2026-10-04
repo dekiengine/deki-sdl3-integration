@@ -11,27 +11,29 @@
 namespace DekiSdl3
 {
 
-namespace {
+namespace
+{
 // SDL3 supplies the engine's time source (SDL_GetTicks). Register it via a static
 // initializer so Deki::Time has a provider before main()/Deki::Engine::Initialize().
 // (This was previously in SDL3Package.cpp, which is the package's DLL/editor entry and
 // is excluded from the static simulator link.)
-struct SDL3TimeInit {
+struct SDL3TimeInit
+{
     SDL3TimeInit() { Deki::Time::SetTimeProvider(std::make_unique<SDL3TimeProvider>()); }
 };
 static SDL3TimeInit s_sdl3_time_init;
 }  // namespace
 
 SDL3Display::SDL3Display()
-: window(nullptr)
-, renderer(nullptr)
-, m_GameTexture(nullptr)
-, m_UiOverlayTexture(nullptr)
-, m_DisplayWidth(0)
-, m_DisplayHeight(0)
-, initialized(false)
-, last_fb_width(0)
-, last_fb_height(0)
+    : window(nullptr),
+      renderer(nullptr),
+      m_GameTexture(nullptr),
+      m_UiOverlayTexture(nullptr),
+      m_DisplayWidth(0),
+      m_DisplayHeight(0),
+      initialized(false),
+      last_fb_width(0),
+      last_fb_height(0)
 {
 }
 
@@ -137,7 +139,9 @@ void SDL3Display::Shutdown()
 bool SDL3Display::EnsureGameTexture(int width, int height, Deki::ColorFormat format)
 {
     if (m_GameTexture && width == last_fb_width && height == last_fb_height && format == m_LastFbFormat)
+    {
         return false;
+    }
 
     if (m_GameTexture)
     {
@@ -149,25 +153,19 @@ bool SDL3Display::EnsureGameTexture(int width, int height, Deki::ColorFormat for
     SDL_PixelFormat sdl_format;
     switch (format)
     {
-        case Deki::ColorFormat::RGB565:
-            sdl_format = SDL_PIXELFORMAT_RGB565;
-            break;
-        case Deki::ColorFormat::RGB888:
-            sdl_format = SDL_PIXELFORMAT_XRGB8888;
-            break;
-        case Deki::ColorFormat::ARGB8888:
-            sdl_format = SDL_PIXELFORMAT_ARGB8888;
-            break;
-        default:
-            sdl_format = SDL_PIXELFORMAT_RGB565;
-            break;
+        case Deki::ColorFormat::RGB565: sdl_format = SDL_PIXELFORMAT_RGB565; break;
+        case Deki::ColorFormat::RGB888: sdl_format = SDL_PIXELFORMAT_XRGB8888; break;
+        case Deki::ColorFormat::ARGB8888: sdl_format = SDL_PIXELFORMAT_ARGB8888; break;
+        default: sdl_format = SDL_PIXELFORMAT_RGB565; break;
     }
 
     m_GameTexture = SDL_CreateTexture(renderer, sdl_format, SDL_TEXTUREACCESS_STREAMING, width, height);
     // Force nearest-neighbor sampling so logical→window upscale stays
     // pixel-perfect (SDL3 default is linear, which would blur sprites).
     if (m_GameTexture)
+    {
         SDL_SetTextureScaleMode(m_GameTexture, SDL_SCALEMODE_NEAREST);
+    }
     last_fb_width = width;
     last_fb_height = height;
     m_LastFbFormat = format;
@@ -181,11 +179,15 @@ void SDL3Display::DrawWindow()
     SDL_RenderClear(renderer);
 
     if (m_GameTexture)
+    {
         SDL_RenderTexture(renderer, m_GameTexture, nullptr, nullptr);
+    }
 
     // Render UI overlay on top if active
     if (m_UiOverlayTexture)
+    {
         SDL_RenderTexture(renderer, m_UiOverlayTexture, nullptr, nullptr);
+    }
 
     // Present the frame
     SDL_RenderPresent(renderer);
@@ -214,18 +216,10 @@ void SDL3Display::Present(const uint8_t* framebuffer, int width, int height, Dek
                 int bytes_per_pixel;
                 switch (format)
                 {
-                    case Deki::ColorFormat::RGB565:
-                        bytes_per_pixel = 2;
-                        break;  // RGB565
-                    case Deki::ColorFormat::RGB888:
-                        bytes_per_pixel = 3;
-                        break;  // RGB888
-                    case Deki::ColorFormat::ARGB8888:
-                        bytes_per_pixel = 4;
-                        break;  // ARGB8888
-                    default:
-                        bytes_per_pixel = 2;
-                        break;
+                    case Deki::ColorFormat::RGB565: bytes_per_pixel = 2; break;    // RGB565
+                    case Deki::ColorFormat::RGB888: bytes_per_pixel = 3; break;    // RGB888
+                    case Deki::ColorFormat::ARGB8888: bytes_per_pixel = 4; break;  // ARGB8888
+                    default: bytes_per_pixel = 2; break;
                 }
                 memcpy(pixels, framebuffer, width * height * bytes_per_pixel);
                 SDL_UnlockTexture(m_GameTexture);
@@ -247,7 +241,8 @@ void SDL3Display::PresentRegions(const uint8_t* framebuffer, int width, int heig
     // Per-rectangle uploads for the 2-byte RGB565 layout (the texture's rows
     // match the framebuffer's). The other formats keep the whole-frame path;
     // so does a texture that was just recreated, whose contents are undefined.
-    if (!framebuffer || format != Deki::ColorFormat::RGB565 || EnsureGameTexture(width, height, format) || !m_GameTexture)
+    if (!framebuffer || format != Deki::ColorFormat::RGB565 || EnsureGameTexture(width, height, format) ||
+        !m_GameTexture)
     {
         Present(framebuffer, width, height, format);
         return;
@@ -256,12 +251,17 @@ void SDL3Display::PresentRegions(const uint8_t* framebuffer, int width, int heig
     for (int32_t i = 0; i < count; ++i)
     {
         const Deki::Rect& r = rects[i];
-        if (r.Empty()) continue;
+        if (r.Empty())
+        {
+            continue;
+        }
         SDL_Rect sr{ r.left, r.top, r.Width(), r.Height() };
         void* pixels;
         int pitch;
         if (!SDL_LockTexture(m_GameTexture, &sr, &pixels, &pitch))
+        {
             continue;
+        }
         const size_t rowBytes = static_cast<size_t>(r.Width()) * 2;
         for (int32_t y = 0; y < r.Height(); ++y)
         {
@@ -277,8 +277,14 @@ void SDL3Display::PresentRegions(const uint8_t* framebuffer, int width, int heig
 
 void SDL3Display::GetDisplaySize(int32_t* width, int32_t* height) const
 {
-    if (width) *width = m_DisplayWidth;
-    if (height) *height = m_DisplayHeight;
+    if (width)
+    {
+        *width = m_DisplayWidth;
+    }
+    if (height)
+    {
+        *height = m_DisplayHeight;
+    }
 }
 
 bool SDL3Display::IsInitialized() const
@@ -328,8 +334,8 @@ void* SDL3Display::CreateUIOverlay(int32_t width, int32_t height)
     return overlay;
 }
 
-bool SDL3Display::UpdateUIOverlay(
-    void* overlay, int32_t x, int32_t y, int32_t width, int32_t height, const uint32_t* pixels)
+bool SDL3Display::UpdateUIOverlay(void* overlay, int32_t x, int32_t y, int32_t width, int32_t height,
+                                  const uint32_t* pixels)
 {
     if (!overlay || !pixels)
     {
@@ -337,7 +343,7 @@ bool SDL3Display::UpdateUIOverlay(
     }
 
     SDL_Texture* texture = (SDL_Texture*)overlay;
-    SDL_Rect rect = {x, y, width, height};
+    SDL_Rect rect = { x, y, width, height };
 
     if (!SDL_UpdateTexture(texture, &rect, pixels, width * 4))
     {
@@ -348,8 +354,8 @@ bool SDL3Display::UpdateUIOverlay(
     return true;
 }
 
-bool SDL3Display::UpdateUIOverlayRGB565A8(
-    void* overlay, int32_t x, int32_t y, int32_t width, int32_t height, const uint8_t* rgb565a8_pixels)
+bool SDL3Display::UpdateUIOverlayRGB565A8(void* overlay, int32_t x, int32_t y, int32_t width, int32_t height,
+                                          const uint8_t* rgb565a8_pixels)
 {
     if (!overlay || !rgb565a8_pixels)
     {
@@ -361,16 +367,17 @@ bool SDL3Display::UpdateUIOverlayRGB565A8(
     int pixel_count = width * height;
     // A whole-screen conversion scratch buffer.
     uint32_t* argb8888_buffer =
-        Deki::Memory::AllocateArray<uint32_t>(static_cast<size_t>(pixel_count),
-                                             Deki::Memory::External);
+        Deki::Memory::AllocateArray<uint32_t>(static_cast<size_t>(pixel_count), Deki::Memory::External);
     if (!argb8888_buffer)
+    {
         return false;
+    }
 
     for (int i = 0; i < pixel_count; i++)
     {
         int idx = i * 3;
-        uint16_t rgb565 = rgb565a8_pixels[idx] | (rgb565a8_pixels[idx+1] << 8);
-        uint8_t alpha = rgb565a8_pixels[idx+2];
+        uint16_t rgb565 = rgb565a8_pixels[idx] | (rgb565a8_pixels[idx + 1] << 8);
+        uint8_t alpha = rgb565a8_pixels[idx + 2];
 
         // Convert RGB565 to RGB888
         uint8_t r = ((rgb565 >> 11) & 0x1F) << 3;  // 5 bits -> 8 bits
@@ -387,7 +394,7 @@ bool SDL3Display::UpdateUIOverlayRGB565A8(
     }
 
     SDL_Texture* texture = (SDL_Texture*)overlay;
-    SDL_Rect rect = {x, y, width, height};
+    SDL_Rect rect = { x, y, width, height };
 
     bool ok = SDL_UpdateTexture(texture, &rect, argb8888_buffer, width * 4);
     Deki::Memory::Free(argb8888_buffer);
@@ -438,8 +445,7 @@ void SDL3Display::ClearActiveUIOverlay()
     size_t buffer_size = iw * ih * sizeof(uint32_t);
     // Through the engine like everything else; it already zeroes what it
     // hands back, which is exactly what this buffer is for.
-    uint32_t* clear_buffer =
-        (uint32_t*)Deki::Memory::Allocate(buffer_size, Deki::Memory::External);
+    uint32_t* clear_buffer = (uint32_t*)Deki::Memory::Allocate(buffer_size, Deki::Memory::External);
     if (clear_buffer)
     {
         SDL_UpdateTexture(m_UiOverlayTexture, nullptr, clear_buffer, iw * sizeof(uint32_t));

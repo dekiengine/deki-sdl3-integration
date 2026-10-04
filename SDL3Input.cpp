@@ -7,7 +7,8 @@
 namespace DekiSdl3
 {
 
-namespace {
+namespace
+{
 // Mouse events arrive in window pixels, but the engine's screen->world math expects
 // framebuffer pixels. The desktop window is created larger than the framebuffer
 // (windowScale), so scale window coords down to framebuffer coords before dispatch.
@@ -16,23 +17,42 @@ namespace {
 void WindowToFramebuffer(SDL_WindowID windowID, float& x, float& y)
 {
     SDL_Window* window = SDL_GetWindowFromID(windowID);
-    if (!window) return;
+    if (!window)
+    {
+        return;
+    }
     int winW = 0, winH = 0;
     SDL_GetWindowSize(window, &winW, &winH);
-    if (winW <= 0 || winH <= 0) return;
+    if (winW <= 0 || winH <= 0)
+    {
+        return;
+    }
 
     Deki::IRenderSystem* rs = Deki::Engine::GetInstance().GetRenderSystem();
-    if (!rs) return;
+    if (!rs)
+    {
+        return;
+    }
     int32_t fbW = rs->GetScreenWidth();
     int32_t fbH = rs->GetScreenHeight();
-    if (fbW <= 0 || fbH <= 0) return;
+    if (fbW <= 0 || fbH <= 0)
+    {
+        return;
+    }
 
     x *= static_cast<float>(fbW) / static_cast<float>(winW);
     y *= static_cast<float>(fbH) / static_cast<float>(winH);
 }
 }  // namespace
 
-SDL3Input::SDL3Input() : initialized(false), m_QuitFlag(false), mouse_x(0), m_MouseY(0), m_MousePressed(false) {}
+SDL3Input::SDL3Input()
+    : initialized(false),
+      m_QuitFlag(false),
+      mouse_x(0),
+      m_MouseY(0),
+      m_MousePressed(false)
+{
+}
 
 SDL3Input::~SDL3Input()
 {
@@ -72,7 +92,9 @@ void SDL3Input::Update()
     float mx, my;
     SDL_MouseButtonFlags mouse_state = SDL_GetMouseState(&mx, &my);
     if (SDL_Window* focus = SDL_GetMouseFocus())
+    {
         WindowToFramebuffer(SDL_GetWindowID(focus), mx, my);
+    }
     mouse_x = (int32_t)mx;
     m_MouseY = (int32_t)my;
     m_MousePressed = (mouse_state & SDL_BUTTON_LMASK) != 0;
@@ -168,24 +190,15 @@ uint32_t SDL3Input::ConvertSDLKeyToGeneric(SDL_Keycode sdl_key)
 
     switch (sdl_key)
     {
-        case SDLK_RETURN:
-            return Keys::Enter;
-        case SDLK_ESCAPE:
-            return Keys::Esc;
-        case SDLK_BACKSPACE:
-            return Keys::Backspace;
-        case SDLK_TAB:
-            return Keys::Tab;
-        case SDLK_DELETE:
-            return Keys::Delete;
-        case SDLK_UP:
-            return Keys::Up;
-        case SDLK_DOWN:
-            return Keys::Down;
-        case SDLK_LEFT:
-            return Keys::Left;
-        case SDLK_RIGHT:
-            return Keys::Right;
+        case SDLK_RETURN: return Keys::Enter;
+        case SDLK_ESCAPE: return Keys::Esc;
+        case SDLK_BACKSPACE: return Keys::Backspace;
+        case SDLK_TAB: return Keys::Tab;
+        case SDLK_DELETE: return Keys::Delete;
+        case SDLK_UP: return Keys::Up;
+        case SDLK_DOWN: return Keys::Down;
+        case SDLK_LEFT: return Keys::Left;
+        case SDLK_RIGHT: return Keys::Right;
         default:
             if (sdl_key >= 32 && sdl_key <= 126)
             {
@@ -207,8 +220,14 @@ bool SDL3Input::IsInitialized() const
 
 bool SDL3Input::GetPointerPosition(int32_t* x, int32_t* y) const
 {
-    if (x) *x = mouse_x;
-    if (y) *y = m_MouseY;
+    if (x)
+    {
+        *x = mouse_x;
+    }
+    if (y)
+    {
+        *y = m_MouseY;
+    }
     return true;
 }
 

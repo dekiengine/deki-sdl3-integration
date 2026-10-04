@@ -25,7 +25,6 @@ DEKI_FORMER_NAME("SDL3DisplaySetup")
 class DEKI_SDL3_API SDL3DisplaySetup : public Deki::SetupComponent
 {
 public:
-
     DEKI_EXPORT
     DEKI_TOOLTIP("How many window pixels show one screen pixel. The screen's size is the target platform's.")
     DEKI_RANGE(1, 8)

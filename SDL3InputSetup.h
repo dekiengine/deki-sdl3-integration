@@ -20,7 +20,6 @@ DEKI_FORMER_NAME("SDL3InputSetup")
 class DEKI_SDL3_API SDL3InputSetup : public Deki::SetupComponent
 {
 public:
-
     DEKI_EXPORT
     DEKI_TOOLTIP("Enable keyboard input")
     bool enableKeyboard = true;

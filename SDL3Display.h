@@ -13,7 +13,7 @@ namespace DekiSdl3
  */
 class SDL3Display : public Deki::IDisplay
 {
-   private:
+private:
     SDL_Window* window;
     SDL_Renderer* renderer;
     SDL_Texture* m_GameTexture;
@@ -34,7 +34,7 @@ class SDL3Display : public Deki::IDisplay
     // is what the old int -1 was, and what a ColorFormat cannot express.
     Deki::ColorFormat m_LastFbFormat = Deki::ColorFormat::RGB565;
 
-   public:
+public:
     SDL3Display();
     virtual ~SDL3Display();
 
@@ -60,10 +60,10 @@ class SDL3Display : public Deki::IDisplay
 
     // UI/Overlay support
     void* CreateUIOverlay(int32_t width, int32_t height) override;
-    bool UpdateUIOverlay(
-        void* overlay, int32_t x, int32_t y, int32_t width, int32_t height, const uint32_t* pixels) override;
-    bool UpdateUIOverlayRGB565A8(
-        void* overlay, int32_t x, int32_t y, int32_t width, int32_t height, const uint8_t* rgb565a8_pixels) override;
+    bool UpdateUIOverlay(void* overlay, int32_t x, int32_t y, int32_t width, int32_t height,
+                         const uint32_t* pixels) override;
+    bool UpdateUIOverlayRGB565A8(void* overlay, int32_t x, int32_t y, int32_t width, int32_t height,
+                                 const uint8_t* rgb565a8_pixels) override;
     void DestroyUIOverlay(void* overlay) override;
     void SetActiveUIOverlay(void* overlay) override;
     void ClearActiveUIOverlay() override;
@@ -72,7 +72,7 @@ class SDL3Display : public Deki::IDisplay
     SDL_Renderer* GetRenderer() const { return renderer; }
     SDL_Window* GetWindow() const { return window; }
 
-   private:
+private:
     // (Re)create the game texture for this frame size/format. Returns true
     // when it was recreated (contents undefined: upload the whole frame).
     bool EnsureGameTexture(int width, int height, Deki::ColorFormat format);
