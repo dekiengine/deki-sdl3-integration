@@ -15,7 +15,6 @@ namespace DekiSdl3
 /// scale. Runs as part of the boot sequence.
 DEKI_CATEGORY("SDL3")
 DEKI_DESCRIPTION("Opens the desktop window the game renders into.")
-DEKI_FORMER_NAME("SDL3DisplaySetup")
 class DEKI_SDL3_API SDL3DisplaySetup : public Deki::SetupComponent
 {
 public:

@@ -11,7 +11,6 @@ namespace DekiSdl3
 /// part of the boot sequence.
 DEKI_CATEGORY("SDL3")
 DEKI_DESCRIPTION("Feeds desktop keyboard and mouse input to the engine.")
-DEKI_FORMER_NAME("SDL3InputSetup")
 class DEKI_SDL3_API SDL3InputSetup : public Deki::SetupComponent
 {
 public:
