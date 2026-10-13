@@ -152,7 +152,13 @@ void SDL3Input::ProcessSDLEvent(const SDL_Event& event)
 
         case SDL_EVENT_KEY_DOWN:
         {
+            // 0: a key the engine has no code for (F1, Shift). Reported, it
+            // would read as "key 0 pressed" to everything that asks.
             uint32_t genericKey = ConvertSDLKeyToGeneric(event.key.key);
+            if (genericKey == 0)
+            {
+                break;
+            }
             m_KeyStates[genericKey] = true;
 
             inputEvent.type = DekiInput::InputEventType::KeyDown;
@@ -165,6 +171,10 @@ void SDL3Input::ProcessSDLEvent(const SDL_Event& event)
         case SDL_EVENT_KEY_UP:
         {
             uint32_t genericKey = ConvertSDLKeyToGeneric(event.key.key);
+            if (genericKey == 0)
+            {
+                break;
+            }
             m_KeyStates[genericKey] = false;
 
             inputEvent.type = DekiInput::InputEventType::KeyUp;
