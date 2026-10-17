@@ -6,5 +6,8 @@
     "How many window pixels show one screen pixel. The screen's size is the target platform's.": "用多少个窗口像素显示一个屏幕像素。屏幕大小取自目标平台。",
     "SDL3 Display Setup": "SDL3 显示屏设置",
     "SDL3 Input Setup": "SDL3 输入设置",
-    "Window Scale": "窗口缩放"
+    "Window Scale": "窗口缩放",
+    "Feeds desktop keyboard and mouse input to the engine.": "将桌面的键盘和鼠标输入传给引擎。",
+    "Opens the desktop window the game renders into.": "打开游戏渲染所用的桌面窗口。",
+    "SDL3": "SDL3"
 }

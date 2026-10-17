@@ -6,5 +6,8 @@
     "How many window pixels show one screen pixel. The screen's size is the target platform's.": "화면 픽셀 하나를 창 픽셀 몇 개로 표시할지 정합니다. 화면 크기는 타겟 플랫폼의 크기를 따릅니다.",
     "SDL3 Display Setup": "SDL3 디스플레이 설정",
     "SDL3 Input Setup": "SDL3 입력 설정",
-    "Window Scale": "창 배율"
+    "Window Scale": "창 배율",
+    "Feeds desktop keyboard and mouse input to the engine.": "데스크톱의 키보드와 마우스 입력을 엔진에 전달합니다.",
+    "Opens the desktop window the game renders into.": "게임이 렌더링할 데스크톱 창을 엽니다.",
+    "SDL3": "SDL3"
 }

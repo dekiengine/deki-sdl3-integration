@@ -6,5 +6,8 @@
     "How many window pixels show one screen pixel. The screen's size is the target platform's.": "画面の 1 ピクセルをウィンドウの何ピクセルで表示するかです。画面のサイズはターゲットプラットフォームのものです。",
     "SDL3 Display Setup": "SDL3 ディスプレイセットアップ",
     "SDL3 Input Setup": "SDL3 入力セットアップ",
-    "Window Scale": "ウィンドウの倍率"
+    "Window Scale": "ウィンドウの倍率",
+    "Feeds desktop keyboard and mouse input to the engine.": "デスクトップのキーボードとマウスの入力をエンジンに渡します。",
+    "Opens the desktop window the game renders into.": "ゲームの描画先となるデスクトップのウィンドウを開きます。",
+    "SDL3": "SDL3"
 }
