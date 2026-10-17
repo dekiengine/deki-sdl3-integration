@@ -1,0 +1,10 @@
+{
+    "Enable Keyboard": "启用键盘",
+    "Enable keyboard input": "启用键盘输入",
+    "Enable Mouse": "启用鼠标",
+    "Enable mouse/pointer input": "启用鼠标/指针输入",
+    "How many window pixels show one screen pixel. The screen's size is the target platform's.": "用多少个窗口像素显示一个屏幕像素。屏幕大小取自目标平台。",
+    "SDL3 Display Setup": "SDL3 显示屏设置",
+    "SDL3 Input Setup": "SDL3 输入设置",
+    "Window Scale": "窗口缩放"
+}
