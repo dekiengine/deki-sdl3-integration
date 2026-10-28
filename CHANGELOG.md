@@ -8,6 +8,12 @@ breaking change bumps the minor across the editor, the engine and every
 package together, so a package with no changes of its own is still released
 alongside one that has them.
 
+## Unreleased
+
+### Added
+- The clock gives microseconds (`GetTicksUs`), so the engine times frames
+  finer than a millisecond.
+
 ## 0.19.0
 
 ### Changed
