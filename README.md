@@ -33,6 +33,10 @@ framebuffer (`SDL_LockTexture` with a rect) when the project's dirty-rect
 tracking is on; the window is still redrawn from the texture every frame.
 Other framebuffer formats use the whole-frame path.
 
+## Community
+
+Questions, ideas and what you made with Deki: [the Deki Discord](https://dekiengine.com/discord/).
+
 ## License
 
 Apache 2.0. See [LICENSE](LICENSE).
