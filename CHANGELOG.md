@@ -10,6 +10,10 @@ alongside one that has them.
 
 ## Unreleased
 
+### Added
+- On Linux and macOS the game's window has the Deki cat as its icon. Windows
+  takes it from the exe (deki-desktop-integration).
+
 ### Changed
 - The game's window is drawn with SDL's GPU API (Direct3D 12 on Windows,
   Vulkan on Linux, Metal on macOS) instead of SDL's OpenGL renderer. It never

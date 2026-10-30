@@ -1,6 +1,7 @@
 #include "SDL3Display.h"
 
 #include <algorithm>
+#include <cstring>
 #include <memory>
 
 #include <deki/Engine.h>
@@ -59,6 +60,49 @@ void RowToRgba(Deki::ColorFormat format, const uint8_t* src, uint8_t* dst, int32
     }
 }
 
+#ifndef _WIN32
+// The window's icon where the executable carries none (Linux, macOS): the Deki
+// cat peeking over its ledge, as in the editor's title bar. On
+// Windows the exe's icon (deki-desktop-integration's resources/windows) is
+// used at every size instead.
+void SetCatIcon(SDL_Window* window)
+{
+    static const char* const kCat[] = {
+        "................", "................", "................", "...A........A...",
+        "...AA......AA...", "...AAAAAAAAAA...", "..AAAAAAAAAAAA..", "..AAKSAAAAKSAA..",
+        "..AAKKAAAAKKAA..", "..AAAAAPPAAAAA..", "..AWWAAAAAAWWA..", "BBBBBBBBBBBBBBBB",
+        "................", "................", "................", "................",
+    };
+    constexpr int kScale = 4;  // 64 px, by whole pixels
+    SDL_Surface* icon = SDL_CreateSurface(16 * kScale, 16 * kScale, SDL_PIXELFORMAT_RGBA32);
+    if (!icon)
+    {
+        return;
+    }
+    for (int y = 0; y < 16 * kScale; ++y)
+    {
+        uint8_t* row = static_cast<uint8_t*>(icon->pixels) + static_cast<size_t>(y) * icon->pitch;
+        for (int x = 0; x < 16 * kScale; ++x)
+        {
+            uint8_t rgba[4] = { 0, 0, 0, 0 };
+            switch (kCat[y / kScale][x / kScale])
+            {
+                case 'A': rgba[0] = 0x3b, rgba[1] = 0xc3, rgba[2] = 0xff, rgba[3] = 255; break;  // fur
+                case 'W': rgba[0] = 0x9d, rgba[1] = 0xe1, rgba[2] = 0xff, rgba[3] = 255; break;  // paws
+                case 'B': rgba[0] = 0x0c, rgba[1] = 0x82, rgba[2] = 0xbf, rgba[3] = 255; break;  // ledge
+                case 'S': rgba[0] = 0xe8, rgba[1] = 0xe6, rgba[2] = 0xe1, rgba[3] = 255; break;  // eye shine
+                case 'K': rgba[0] = 0x0a, rgba[1] = 0x0b, rgba[2] = 0x0d, rgba[3] = 255; break;  // eyes
+                case 'P': rgba[0] = 0xff, rgba[1] = 0x8f, rgba[2] = 0xb8, rgba[3] = 255; break;  // mouth
+                default: break;
+            }
+            std::memcpy(row + x * 4, rgba, 4);
+        }
+    }
+    SDL_SetWindowIcon(window, icon);
+    SDL_DestroySurface(icon);
+}
+#endif
+
 SDL_GPUDevice* CreateDevice()
 {
     // No shaders are used, but SDL wants the formats the program could give.
@@ -105,6 +149,9 @@ bool SDL3Display::Initialize(int32_t width, int32_t height)
         SDL_Quit();
         return false;
     }
+#ifndef _WIN32
+    SetCatIcon(window);
+#endif
 
     m_Device = CreateDevice();
     if (m_Device == nullptr || !SDL_ClaimWindowForGPUDevice(m_Device, window))
