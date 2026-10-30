@@ -8,6 +8,17 @@ breaking change bumps the minor across the editor, the engine and every
 package together, so a package with no changes of its own is still released
 alongside one that has them.
 
+## Unreleased
+
+### Changed
+- The game's window is drawn with SDL's GPU API (Direct3D 12 on Windows,
+  Vulkan on Linux, Metal on macOS) instead of SDL's OpenGL renderer. It never
+  waits for the display, so a hidden or background window cannot stall it.
+- Every screen format updates only what changed; before, only RGB565 did.
+  RGB888 frames show correctly: their 3-byte pixels were copied into a 4-byte
+  texture.
+- UI overlays are gone: nothing in the engine creates one.
+
 ## 0.21.0
 
 ### Added
