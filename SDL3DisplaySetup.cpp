@@ -15,7 +15,7 @@ namespace DekiSdl3
 // The package owns the display and keeps it for the whole program; the engine
 // only holds a pointer to it.
 static std::unique_ptr<SDL3Display> s_SDL3Display;
-#if defined(DEKI_PACKAGE_GL)
+#if defined(DEKI_CAPABILITY_OPENGL)
 static std::unique_ptr<SDL3GLDisplay> s_SDL3GLDisplay;
 #endif
 
@@ -26,7 +26,7 @@ static std::unique_ptr<SDL3GLDisplay> s_SDL3GLDisplay;
 
 void SDL3DisplaySetup::Setup(SetupCallback onComplete)
 {
-#if defined(DEKI_PACKAGE_GL)
+#if defined(DEKI_CAPABILITY_OPENGL)
     if (presentThroughOpenGL)
     {
         s_SDL3GLDisplay = std::make_unique<SDL3GLDisplay>();

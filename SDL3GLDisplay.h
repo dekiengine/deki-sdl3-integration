@@ -1,12 +1,13 @@
 #pragma once
 
-// An SDL3 window shown through OpenGL, by deki-gl's presenter: the frame is
-// built on the GPU from the 2D renderer's layers and anything that draws into
-// it directly (deki-3d-gl's meshes), then scaled into the window. Built only
-// where the project has deki-gl; SDL3Display, over SDL's GPU API, is the
-// display everywhere else and the fallback when OpenGL does not come up.
+// An SDL3 window shown through OpenGL, by deki-rendering's GLPresenter: the
+// frame is built on the GPU from the 2D renderer's layers and anything that
+// draws into it directly (deki-3d's meshes), then scaled into the window.
+// Built only where the platform has OpenGL (DEKI_CAPABILITY_OPENGL);
+// SDL3Display, over SDL's GPU API, is the display everywhere else and the
+// fallback when OpenGL does not come up.
 
-#if defined(DEKI_PACKAGE_GL) && !defined(DEKI_EDITOR)
+#if defined(DEKI_CAPABILITY_OPENGL) && !defined(DEKI_EDITOR)
 
 #include <deki/Engine.h>  // ColorFormat
 #include <deki/providers/IDisplay.h>
@@ -14,8 +15,8 @@
 
 #include <memory>
 
-#include "GLApi.h"        // from deki-gl
-#include "GLPresenter.h"  // from deki-gl
+#include "deki-rendering/GLApi.h"
+#include "deki-rendering/GLPresenter.h"
 
 namespace DekiSdl3
 {

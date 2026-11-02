@@ -1,6 +1,6 @@
 #include "SDL3GLDisplay.h"
 
-#if defined(DEKI_PACKAGE_GL) && !defined(DEKI_EDITOR)
+#if defined(DEKI_CAPABILITY_OPENGL) && !defined(DEKI_EDITOR)
 
 #include <deki/LogSystem.h>
 

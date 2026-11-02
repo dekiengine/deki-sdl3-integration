@@ -35,14 +35,14 @@ Other framebuffer formats use the whole-frame path.
 
 ## Presenting through OpenGL
 
-With `deki-gl` in the project, `SDL3DisplaySetup` opens an OpenGL window
-instead (`SDL3GLDisplay`), presented by `deki-gl`'s presenter: the frame is
-built on the GPU, and `deki-3d-gl` draws meshes straight into it rather than
-reading them back. The context is OpenGL ES 3.0 on Linux, the API a handheld
+Where the platform provides `opengl`, `SDL3DisplaySetup` opens an OpenGL
+window instead (`SDL3GLDisplay`), presented by deki-rendering's `GLPresenter`:
+the frame is built on the GPU, and deki-3d draws meshes straight into it
+rather than reading them back. The context is OpenGL ES 3.0 on Linux, the API a handheld
 has, and desktop OpenGL 3.3 core elsewhere. The frame buffer is then RGB565A8,
 whatever the platform's screen format, so the 2D can be composed in layers.
 
-`presentThroughOpenGL` turns it off. Without `deki-gl`, or if OpenGL does not
+`presentThroughOpenGL` turns it off. Without OpenGL, or if it does not
 come up, the window is `SDL3Display` over SDL's GPU API as before.
 
 Presenting through OpenGL, the 2D is drawn on the GPU too: sprites, text,
