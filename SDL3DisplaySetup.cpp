@@ -31,6 +31,7 @@ void SDL3DisplaySetup::Setup(SetupCallback onComplete)
     {
         s_SDL3GLDisplay = std::make_unique<SDL3GLDisplay>();
         s_SDL3GLDisplay->SetWindowScale(windowScale);
+        s_SDL3GLDisplay->SetDraw2DOnGpu(draw2DOnGpu);
         if (s_SDL3GLDisplay->Initialize(DEKI_SCREEN_WIDTH, DEKI_SCREEN_HEIGHT))
         {
             Deki::Engine::GetInstance().SetDisplay(s_SDL3GLDisplay.get(), "SDL3 OpenGL");

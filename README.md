@@ -45,6 +45,14 @@ whatever the platform's screen format, so the 2D can be composed in layers.
 `presentThroughOpenGL` turns it off. Without `deki-gl`, or if OpenGL does not
 come up, the window is `SDL3Display` over SDL's GPU API as before.
 
+Presenting through OpenGL, the 2D is drawn on the GPU too: sprites, text,
+shapes, particles and tiles go straight into the frame, and the CPU draws no
+pixels. `draw2DOnGpu` turns that off, and the 2D is drawn on the CPU and
+uploaded as a layer. The GPU keeps 8 bits a channel where a device's screen
+rounds to 565, so gradients and blends come out a little smoother than on the
+device; the frame buffer holds only what code writes into it directly, so a
+screenshot taken from it misses the 2D.
+
 ## Community
 
 Questions, ideas and what you made with Deki: [the Deki Discord](https://dekiengine.com/discord/).

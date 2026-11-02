@@ -28,6 +28,9 @@ public:
 
     /// Window pixels per screen pixel. Set before Initialize; 1 by default.
     void SetWindowScale(int32_t scale) { m_WindowScale = scale > 0 ? scale : 1; }
+    /// Whether the presenter draws the 2D too (GLPresenter::SetDraws2D).
+    /// Set before Initialize; on by default.
+    void SetDraw2DOnGpu(bool draw) { m_Draw2DOnGpu = draw; }
 
     // IDisplay. width x height is the emulated screen, as for SDL3Display.
     // False when OpenGL does not come up; the window is closed again.
@@ -60,6 +63,7 @@ private:
     int32_t m_Width = 0;
     int32_t m_Height = 0;
     int32_t m_WindowScale = 1;
+    bool m_Draw2DOnGpu = true;
 };
 
 }  // namespace DekiSdl3

@@ -16,6 +16,11 @@ alongside one that has them.
   `deki-3d-gl`'s meshes draw straight into it. `SDL3DisplaySetup`'s
   `presentThroughOpenGL` (on by default) chooses it; SDL's GPU API remains the
   fallback.
+- `SDL3DisplaySetup.draw2DOnGpu` (on by default): presenting through OpenGL,
+  the 2D is drawn on the GPU too, by `deki-gl`'s presenter, and the CPU draws
+  no pixels. The frame buffer then holds only what code writes into it
+  directly, so a screenshot of it misses the 2D; turn it off for that, or to
+  see the 565 rounding a device's screen shows.
 
 ## 0.22.0
 

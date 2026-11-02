@@ -30,6 +30,13 @@ public:
                  "without deki-gl, SDL's GPU API shows the frame buffer as it is.")
     bool presentThroughOpenGL = true;
 
+    DEKI_EXPORT
+    DEKI_TOOLTIP("Presenting through OpenGL, draw the 2D on the GPU too: sprites, text and shapes go straight into "
+                 "the frame and the CPU draws no pixels. Off, the 2D is drawn on the CPU and the frame buffer "
+                 "uploaded, as on a device. The frame buffer then holds only what code writes into it directly, "
+                 "so a screenshot of it misses the 2D.")
+    bool draw2DOnGpu = true;
+
     void Setup(SetupCallback onComplete) override;
     const char* GetSetupName() const override { return "SDL3 Display"; }
 };

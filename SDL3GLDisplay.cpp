@@ -81,6 +81,8 @@ bool SDL3GLDisplay::Initialize(int32_t width, int32_t height)
         return false;
     }
 
+    m_Presenter->SetDraws2D(m_Draw2DOnGpu);
+
     m_Width = width;
     m_Height = height;
     DEKI_LOG_INFO("SDL3GLDisplay: %dx%d screen in a x%d window, presented through OpenGL", width, height,
