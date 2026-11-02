@@ -3,6 +3,7 @@
 
 #if !defined(DEKI_EDITOR) && defined(DEKI_PACKAGE_SDL3)
 #include "SDL3Display.h"
+#include "SDL3GLDisplay.h"
 #include <deki/Engine.h>
 #endif
 
@@ -14,6 +15,9 @@ namespace DekiSdl3
 // The package owns the display and keeps it for the whole program; the engine
 // only holds a pointer to it.
 static std::unique_ptr<SDL3Display> s_SDL3Display;
+#if defined(DEKI_PACKAGE_GL)
+static std::unique_ptr<SDL3GLDisplay> s_SDL3GLDisplay;
+#endif
 
 #if !defined(DEKI_SCREEN_WIDTH) || !defined(DEKI_SCREEN_HEIGHT) || !defined(DEKI_SCREEN_COLOR_FORMAT)
 #error                                                                                                                 \
@@ -22,6 +26,22 @@ static std::unique_ptr<SDL3Display> s_SDL3Display;
 
 void SDL3DisplaySetup::Setup(SetupCallback onComplete)
 {
+#if defined(DEKI_PACKAGE_GL)
+    if (presentThroughOpenGL)
+    {
+        s_SDL3GLDisplay = std::make_unique<SDL3GLDisplay>();
+        s_SDL3GLDisplay->SetWindowScale(windowScale);
+        if (s_SDL3GLDisplay->Initialize(DEKI_SCREEN_WIDTH, DEKI_SCREEN_HEIGHT))
+        {
+            Deki::Engine::GetInstance().SetDisplay(s_SDL3GLDisplay.get(), "SDL3 OpenGL");
+            onComplete(true);
+            return;
+        }
+        // It said why; SDL's GPU API still shows the game.
+        s_SDL3GLDisplay.reset();
+    }
+#endif
+
     DEKI_LOG_INFO("SDL3DisplaySetup: Creating SDL3 display (%dx%d screen, window x%d)", (int)DEKI_SCREEN_WIDTH,
                   (int)DEKI_SCREEN_HEIGHT, (int)windowScale);
 

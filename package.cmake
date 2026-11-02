@@ -8,6 +8,7 @@ set(PACKAGE_SOURCES
     SDL3DisplaySetup.cpp
     SDL3InputSetup.cpp
     SDL3Display.cpp
+    SDL3GLDisplay.cpp
     SDL3Input.cpp
 )
 set(PACKAGE_ENTRY SDL3Package.cpp)

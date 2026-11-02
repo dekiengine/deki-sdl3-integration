@@ -23,6 +23,13 @@ public:
     DEKI_RANGE(1, 8)
     int32_t windowScale = 2;
 
+    DEKI_EXPORT
+    DEKI_TOOLTIP("Show frames through OpenGL where the project has deki-gl. The frame is then built on the GPU, and "
+                 "3D (deki-3d-gl) draws straight into it instead of being read back. The frame buffer becomes "
+                 "RGB565A8, whatever the platform's screen format, so 2D can be composed in layers. Off, or "
+                 "without deki-gl, SDL's GPU API shows the frame buffer as it is.")
+    bool presentThroughOpenGL = true;
+
     void Setup(SetupCallback onComplete) override;
     const char* GetSetupName() const override { return "SDL3 Display"; }
 };

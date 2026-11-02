@@ -33,6 +33,18 @@ framebuffer (`SDL_LockTexture` with a rect) when the project's dirty-rect
 tracking is on; the window is still redrawn from the texture every frame.
 Other framebuffer formats use the whole-frame path.
 
+## Presenting through OpenGL
+
+With `deki-gl` in the project, `SDL3DisplaySetup` opens an OpenGL window
+instead (`SDL3GLDisplay`), presented by `deki-gl`'s presenter: the frame is
+built on the GPU, and `deki-3d-gl` draws meshes straight into it rather than
+reading them back. The context is OpenGL ES 3.0 on Linux, the API a handheld
+has, and desktop OpenGL 3.3 core elsewhere. The frame buffer is then RGB565A8,
+whatever the platform's screen format, so the 2D can be composed in layers.
+
+`presentThroughOpenGL` turns it off. Without `deki-gl`, or if OpenGL does not
+come up, the window is `SDL3Display` over SDL's GPU API as before.
+
 ## Community
 
 Questions, ideas and what you made with Deki: [the Deki Discord](https://dekiengine.com/discord/).

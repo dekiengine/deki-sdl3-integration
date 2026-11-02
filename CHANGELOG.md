@@ -8,6 +8,15 @@ breaking change bumps the minor across the editor, the engine and every
 package together, so a package with no changes of its own is still released
 alongside one that has them.
 
+## Unreleased
+
+### Added
+- `SDL3GLDisplay`: with `deki-gl` in the project, the window presents through
+  OpenGL and `deki-gl`'s presenter, so the frame is built on the GPU and
+  `deki-3d-gl`'s meshes draw straight into it. `SDL3DisplaySetup`'s
+  `presentThroughOpenGL` (on by default) chooses it; SDL's GPU API remains the
+  fallback.
+
 ## 0.22.0
 
 ### Added
