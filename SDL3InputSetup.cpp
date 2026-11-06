@@ -29,7 +29,7 @@ void SDL3InputSetup::Setup(SetupCallback onComplete)
 
         // Start deki-input's dispatch system and register it with the engine.
         // Editor and firmware builds do this in the generated
-        // DekiInitPackageSystems(), but the static desktop simulator links the
+        // DekiInitPackageSystems(), but the static desktop build links the
         // engine's empty stub for it, so it happens here too. Safe to repeat.
         // Global, not DekiInput::, because the editor's generated glue
         // declares it that way.
