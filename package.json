@@ -3,6 +3,9 @@
   "displayName": "SDL3 Integration",
   "minEngine": "0.22.0",
   "buildDefine": "DEKI_PACKAGE_SDL3",
+  "capabilityDefines": [
+    "opengl"
+  ],
   "platformRequires": [
     "sdl3"
   ],

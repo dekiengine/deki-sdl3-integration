@@ -10,6 +10,11 @@ alongside one that has them.
 
 ## Unreleased
 
+### Declares the capabilities it uses
+- `package.json` has `"capabilityDefines": ["opengl"]`: its GL presenter tests
+  `DEKI_CAPABILITY_OPENGL`. The editor reads them instead of knowing `opengl`
+  itself; needs the editor from this release.
+
 ### Added
 - `SDL3GLDisplay`: where the platform provides `opengl`, the window presents
   through OpenGL and deki-rendering's `GLPresenter`, so the frame is built on
