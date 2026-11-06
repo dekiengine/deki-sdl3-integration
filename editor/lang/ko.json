@@ -9,5 +9,9 @@
     "Window Scale": "창 배율",
     "Feeds desktop keyboard and mouse input to the engine.": "데스크톱의 키보드와 마우스 입력을 엔진에 전달합니다.",
     "Opens the desktop window the game renders into.": "게임이 렌더링할 데스크톱 창을 엽니다.",
-    "SDL3": "SDL3"
+    "SDL3": "SDL3",
+    "Draw 2D On GPU": "GPU에서 2D 그리기",
+    "Present Through OpenGL": "OpenGL로 표시",
+    "Presenting through OpenGL, draw the 2D on the GPU too: sprites, text and shapes go straight into the frame and the CPU draws no pixels. Off, the 2D is drawn on the CPU and the frame buffer uploaded, as on a device. The frame buffer then holds only what code writes into it directly, so a screenshot of it misses the 2D.": "OpenGL로 표시할 때 2D도 GPU에서 그립니다. 스프라이트, 텍스트, 도형이 프레임에 바로 들어가고 CPU는 픽셀을 그리지 않습니다. 끄면 기기에서처럼 CPU가 2D를 그리고 프레임 버퍼를 업로드합니다. 켜면 프레임 버퍼에는 코드가 직접 쓴 것만 들어 있으므로, 그 스크린샷에는 2D가 빠집니다.",
+    "Show frames through OpenGL where the platform has it. The frame is then built on the GPU, and 3D draws straight into it instead of being read back. The frame buffer becomes RGB565A8, whatever the platform's screen format, so 2D can be composed in layers. Off, or without OpenGL, SDL's GPU API shows the frame buffer as it is.": "플랫폼에 OpenGL이 있으면 프레임을 OpenGL로 표시합니다. 프레임은 GPU에서 구성되고, 3D는 다시 읽어 오지 않고 바로 그 안에 그려집니다. 2D를 레이어로 합성할 수 있도록 프레임 버퍼는 플랫폼의 화면 포맷과 상관없이 RGB565A8이 됩니다. 끄거나 OpenGL이 없으면 SDL의 GPU API가 프레임 버퍼를 그대로 표시합니다."
 }

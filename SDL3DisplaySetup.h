@@ -9,7 +9,7 @@ namespace DekiSdl3
 {
 
 /// Opens the desktop window that stands in for a device's screen. The screen
-/// is the target platform's: the simulator build compiles in its size and
+/// is the target platform's: the desktop build compiles in its size and
 /// colour format as DEKI_SCREEN_WIDTH/HEIGHT/COLOR_FORMAT, and the game renders
 /// at exactly that, as on the device. The window shows it at a whole-number
 /// scale. Runs as part of the boot sequence.

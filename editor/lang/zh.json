@@ -9,5 +9,9 @@
     "Window Scale": "窗口缩放",
     "Feeds desktop keyboard and mouse input to the engine.": "将桌面的键盘和鼠标输入传给引擎。",
     "Opens the desktop window the game renders into.": "打开游戏渲染所用的桌面窗口。",
-    "SDL3": "SDL3"
+    "SDL3": "SDL3",
+    "Draw 2D On GPU": "在 GPU 上绘制 2D",
+    "Present Through OpenGL": "通过 OpenGL 呈现",
+    "Presenting through OpenGL, draw the 2D on the GPU too: sprites, text and shapes go straight into the frame and the CPU draws no pixels. Off, the 2D is drawn on the CPU and the frame buffer uploaded, as on a device. The frame buffer then holds only what code writes into it directly, so a screenshot of it misses the 2D.": "通过 OpenGL 呈现时，也在 GPU 上绘制 2D：精灵、文本和形状直接进入帧，CPU 不绘制任何像素。关闭时，像在设备上一样由 CPU 绘制 2D 并上传帧缓冲区。开启时帧缓冲区只包含代码直接写入的内容，所以它的截图不含 2D。",
+    "Show frames through OpenGL where the platform has it. The frame is then built on the GPU, and 3D draws straight into it instead of being read back. The frame buffer becomes RGB565A8, whatever the platform's screen format, so 2D can be composed in layers. Off, or without OpenGL, SDL's GPU API shows the frame buffer as it is.": "平台有 OpenGL 时，通过 OpenGL 显示帧。帧随后在 GPU 上构建，3D 直接画进去而不读回。无论平台的屏幕格式如何，帧缓冲区都会变为 RGB565A8，以便分层合成 2D。关闭或没有 OpenGL 时，由 SDL 的 GPU API 按原样显示帧缓冲区。"
 }

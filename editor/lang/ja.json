@@ -9,5 +9,9 @@
     "Window Scale": "ウィンドウの倍率",
     "Feeds desktop keyboard and mouse input to the engine.": "デスクトップのキーボードとマウスの入力をエンジンに渡します。",
     "Opens the desktop window the game renders into.": "ゲームの描画先となるデスクトップのウィンドウを開きます。",
-    "SDL3": "SDL3"
+    "SDL3": "SDL3",
+    "Draw 2D On GPU": "2D を GPU で描画",
+    "Present Through OpenGL": "OpenGL で表示",
+    "Presenting through OpenGL, draw the 2D on the GPU too: sprites, text and shapes go straight into the frame and the CPU draws no pixels. Off, the 2D is drawn on the CPU and the frame buffer uploaded, as on a device. The frame buffer then holds only what code writes into it directly, so a screenshot of it misses the 2D.": "OpenGL で表示するとき、2D も GPU で描画します。スプライト、テキスト、図形がフレームに直接描かれ、CPU はピクセルを描きません。オフにすると、デバイスと同じように 2D を CPU で描いてフレームバッファーをアップロードします。オンのときフレームバッファーにはコードが直接書き込んだものしか入らないため、そのスクリーンショットには 2D が写りません。",
+    "Show frames through OpenGL where the platform has it. The frame is then built on the GPU, and 3D draws straight into it instead of being read back. The frame buffer becomes RGB565A8, whatever the platform's screen format, so 2D can be composed in layers. Off, or without OpenGL, SDL's GPU API shows the frame buffer as it is.": "プラットフォームに OpenGL があれば、フレームを OpenGL で表示します。フレームは GPU 上で組み立てられ、3D は読み戻されずに直接そこへ描かれます。2D をレイヤーで合成できるよう、フレームバッファーはプラットフォームの画面フォーマットにかかわらず RGB565A8 になります。オフのとき、または OpenGL がないときは、SDL の GPU API がフレームバッファーをそのまま表示します。"
 }
