@@ -56,7 +56,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">deki-sdl3-integration<span id="projectnumber">&#160;0.30.0</span>
+   <div id="projectname">deki-sdl3-integration<span id="projectnumber">&#160;0.30.3</span>
    </div>
    <div id="projectbrief">Deki package reference</div>
   </td>
@@ -149,6 +149,10 @@ SDL3DisplaySetup</h2>
 <th class="markdownTableHeadNone">Property  </th><th class="markdownTableHeadNone">Type  </th><th class="markdownTableHeadNone">Default  </th><th class="markdownTableHeadNone">Constraints  </th><th class="markdownTableHeadNone">Description  </th></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><span class="tt">windowScale</span>  </td><td class="markdownTableBodyNone">int32  </td><td class="markdownTableBodyNone"><span class="tt">2</span>  </td><td class="markdownTableBodyNone">1 to 8  </td><td class="markdownTableBodyNone">How many window pixels show one screen pixel. The screen's size is the target platform's.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><span class="tt">presentThroughOpenGL</span>  </td><td class="markdownTableBodyNone">bool  </td><td class="markdownTableBodyNone"><span class="tt">true</span>  </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">Show frames through OpenGL where the platform has it. The frame is then built on the GPU, and 3D draws straight into it instead of being read back. The frame buffer becomes RGB565A8, whatever the platform's screen format, so 2D can be composed in layers. Off, or without OpenGL, SDL's GPU API shows the frame buffer as it is.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><span class="tt">draw2DOnGpu</span>  </td><td class="markdownTableBodyNone">bool  </td><td class="markdownTableBodyNone"><span class="tt">true</span>  </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">Presenting through OpenGL, draw the 2D on the GPU too: sprites, text and shapes go straight into the frame and the CPU draws no pixels. Off, the 2D is drawn on the CPU and the frame buffer uploaded, as on a device. The frame buffer then holds only what code writes into it directly, so a screenshot of it misses the 2D.  </td></tr>
 </table>
 <h2 class="doxsection"><a class="anchor" id="c-sdl3inputsetup"></a>
 SDL3InputSetup</h2>
@@ -199,7 +203,7 @@ Changed</h2>
 </ul>
 <p>Earlier releases: <a href="https://github.com/dekiengine/deki-sdl3-integration/blob/master/CHANGELOG.md">CHANGELOG.md</a>.</p>
 <hr  />
-<p>Generated from the package's reflection data (engine 0.30.0). Property names are the keys used in scene files. Renames keep an alias (<a href="https://github.com/dekiengine/deki-editor/blob/master/COMPATIBILITY.md">compatibility</a>). </p>
+<p>Generated from the package's reflection data (engine 0.30.3). Property names are the keys used in scene files. Renames keep an alias (<a href="https://github.com/dekiengine/deki-editor/blob/master/COMPATIBILITY.md">compatibility</a>). </p>
 </div></div><!-- PageDoc -->
 <a href="doxygen_crawl.html"></a>
 </div><!-- contents -->

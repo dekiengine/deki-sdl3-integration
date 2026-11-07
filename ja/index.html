@@ -57,7 +57,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">deki-sdl3-integration<span id="projectnumber">&#160;0.30.0</span>
+   <div id="projectname">deki-sdl3-integration<span id="projectnumber">&#160;0.30.3</span>
    </div>
    <div id="projectbrief">Deki パッケージリファレンス</div>
   </td>
@@ -150,6 +150,10 @@ SDL3DisplaySetup</h2>
 <th class="markdownTableHeadNone">プロパティ  </th><th class="markdownTableHeadNone">型  </th><th class="markdownTableHeadNone">デフォルト  </th><th class="markdownTableHeadNone">制約  </th><th class="markdownTableHeadNone">説明  </th></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><span class="tt">windowScale</span>  </td><td class="markdownTableBodyNone">int32  </td><td class="markdownTableBodyNone"><span class="tt">2</span>  </td><td class="markdownTableBodyNone">1 から 8  </td><td class="markdownTableBodyNone">画面の 1 ピクセルをウィンドウの何ピクセルで表示するかです。画面のサイズはターゲットプラットフォームのものです。  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><span class="tt">presentThroughOpenGL</span>  </td><td class="markdownTableBodyNone">bool  </td><td class="markdownTableBodyNone"><span class="tt">true</span>  </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">プラットフォームに OpenGL があれば、フレームを OpenGL で表示します。フレームは GPU 上で組み立てられ、3D は読み戻されずに直接そこへ描かれます。2D をレイヤーで合成できるよう、フレームバッファーはプラットフォームの画面フォーマットにかかわらず RGB565A8 になります。オフのとき、または OpenGL がないときは、SDL の GPU API がフレームバッファーをそのまま表示します。  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><span class="tt">draw2DOnGpu</span>  </td><td class="markdownTableBodyNone">bool  </td><td class="markdownTableBodyNone"><span class="tt">true</span>  </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">OpenGL で表示するとき、2D も GPU で描画します。スプライト、テキスト、図形がフレームに直接描かれ、CPU はピクセルを描きません。オフにすると、デバイスと同じように 2D を CPU で描いてフレームバッファーをアップロードします。オンのときフレームバッファーにはコードが直接書き込んだものしか入らないため、そのスクリーンショットには 2D が写りません。  </td></tr>
 </table>
 <h2 class="doxsection"><a class="anchor" id="c-sdl3inputsetup"></a>
 SDL3InputSetup</h2>
@@ -201,7 +205,7 @@ Changed</h2>
 </ul>
 <p>それ以前のリリース: <a href="https://github.com/dekiengine/deki-sdl3-integration/blob/master/CHANGELOG.md">CHANGELOG.md</a></p>
 <hr  />
-<p>パッケージのリフレクションデータから生成しています (エンジン 0.30.0)。プロパティ名はシーンファイルで使われるキーです。名前を変えても別名が残ります (<a href="https://github.com/dekiengine/deki-editor/blob/master/COMPATIBILITY.md">互換性</a>)。 </p>
+<p>パッケージのリフレクションデータから生成しています (エンジン 0.30.3)。プロパティ名はシーンファイルで使われるキーです。名前を変えても別名が残ります (<a href="https://github.com/dekiengine/deki-editor/blob/master/COMPATIBILITY.md">互換性</a>)。 </p>
 </div></div><!-- PageDoc -->
 <a href="doxygen_crawl.html"></a>
 </div><!-- contents -->

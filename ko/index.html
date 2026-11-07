@@ -57,7 +57,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">deki-sdl3-integration<span id="projectnumber">&#160;0.30.0</span>
+   <div id="projectname">deki-sdl3-integration<span id="projectnumber">&#160;0.30.3</span>
    </div>
    <div id="projectbrief">Deki 패키지 레퍼런스</div>
   </td>
@@ -150,6 +150,10 @@ SDL3DisplaySetup</h2>
 <th class="markdownTableHeadNone">속성  </th><th class="markdownTableHeadNone">유형  </th><th class="markdownTableHeadNone">기본값  </th><th class="markdownTableHeadNone">제약  </th><th class="markdownTableHeadNone">설명  </th></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><span class="tt">windowScale</span>  </td><td class="markdownTableBodyNone">int32  </td><td class="markdownTableBodyNone"><span class="tt">2</span>  </td><td class="markdownTableBodyNone">1~8  </td><td class="markdownTableBodyNone">화면 픽셀 하나를 창 픽셀 몇 개로 표시할지 정합니다. 화면 크기는 타겟 플랫폼의 크기를 따릅니다.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><span class="tt">presentThroughOpenGL</span>  </td><td class="markdownTableBodyNone">bool  </td><td class="markdownTableBodyNone"><span class="tt">true</span>  </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">플랫폼에 OpenGL이 있으면 프레임을 OpenGL로 표시합니다. 프레임은 GPU에서 구성되고, 3D는 다시 읽어 오지 않고 바로 그 안에 그려집니다. 2D를 레이어로 합성할 수 있도록 프레임 버퍼는 플랫폼의 화면 포맷과 상관없이 RGB565A8이 됩니다. 끄거나 OpenGL이 없으면 SDL의 GPU API가 프레임 버퍼를 그대로 표시합니다.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><span class="tt">draw2DOnGpu</span>  </td><td class="markdownTableBodyNone">bool  </td><td class="markdownTableBodyNone"><span class="tt">true</span>  </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">OpenGL로 표시할 때 2D도 GPU에서 그립니다. 스프라이트, 텍스트, 도형이 프레임에 바로 들어가고 CPU는 픽셀을 그리지 않습니다. 끄면 기기에서처럼 CPU가 2D를 그리고 프레임 버퍼를 업로드합니다. 켜면 프레임 버퍼에는 코드가 직접 쓴 것만 들어 있으므로, 그 스크린샷에는 2D가 빠집니다.  </td></tr>
 </table>
 <h2 class="doxsection"><a class="anchor" id="c-sdl3inputsetup"></a>
 SDL3InputSetup</h2>
@@ -201,7 +205,7 @@ Changed</h2>
 </ul>
 <p>이전 릴리스: <a href="https://github.com/dekiengine/deki-sdl3-integration/blob/master/CHANGELOG.md">CHANGELOG.md</a></p>
 <hr  />
-<p>패키지의 리플렉션 데이터에서 생성했습니다(엔진 0.30.0). 속성 이름은 씬 파일에서 쓰는 키입니다. 이름을 바꿔도 별칭이 유지됩니다(<a href="https://github.com/dekiengine/deki-editor/blob/master/COMPATIBILITY.md">호환성</a>). </p>
+<p>패키지의 리플렉션 데이터에서 생성했습니다(엔진 0.30.3). 속성 이름은 씬 파일에서 쓰는 키입니다. 이름을 바꿔도 별칭이 유지됩니다(<a href="https://github.com/dekiengine/deki-editor/blob/master/COMPATIBILITY.md">호환성</a>). </p>
 </div></div><!-- PageDoc -->
 <a href="doxygen_crawl.html"></a>
 </div><!-- contents -->

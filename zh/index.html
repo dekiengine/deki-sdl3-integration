@@ -57,7 +57,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">deki-sdl3-integration<span id="projectnumber">&#160;0.30.0</span>
+   <div id="projectname">deki-sdl3-integration<span id="projectnumber">&#160;0.30.3</span>
    </div>
    <div id="projectbrief">Deki 包参考</div>
   </td>
@@ -150,6 +150,10 @@ SDL3DisplaySetup</h2>
 <th class="markdownTableHeadNone">属性  </th><th class="markdownTableHeadNone">类型  </th><th class="markdownTableHeadNone">默认值  </th><th class="markdownTableHeadNone">约束  </th><th class="markdownTableHeadNone">说明  </th></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><span class="tt">windowScale</span>  </td><td class="markdownTableBodyNone">int32  </td><td class="markdownTableBodyNone"><span class="tt">2</span>  </td><td class="markdownTableBodyNone">1 到 8  </td><td class="markdownTableBodyNone">用多少个窗口像素显示一个屏幕像素。屏幕大小取自目标平台。  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><span class="tt">presentThroughOpenGL</span>  </td><td class="markdownTableBodyNone">bool  </td><td class="markdownTableBodyNone"><span class="tt">true</span>  </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">平台有 OpenGL 时，通过 OpenGL 显示帧。帧随后在 GPU 上构建，3D 直接画进去而不读回。无论平台的屏幕格式如何，帧缓冲区都会变为 RGB565A8，以便分层合成 2D。关闭或没有 OpenGL 时，由 SDL 的 GPU API 按原样显示帧缓冲区。  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><span class="tt">draw2DOnGpu</span>  </td><td class="markdownTableBodyNone">bool  </td><td class="markdownTableBodyNone"><span class="tt">true</span>  </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">通过 OpenGL 呈现时，也在 GPU 上绘制 2D：精灵、文本和形状直接进入帧，CPU 不绘制任何像素。关闭时，像在设备上一样由 CPU 绘制 2D 并上传帧缓冲区。开启时帧缓冲区只包含代码直接写入的内容，所以它的截图不含 2D。  </td></tr>
 </table>
 <h2 class="doxsection"><a class="anchor" id="c-sdl3inputsetup"></a>
 SDL3InputSetup</h2>
@@ -201,7 +205,7 @@ Changed</h2>
 </ul>
 <p>更早的版本：<a href="https://github.com/dekiengine/deki-sdl3-integration/blob/master/CHANGELOG.md">CHANGELOG.md</a></p>
 <hr  />
-<p>由包的反射数据生成（引擎 0.30.0）。属性名就是场景文件中使用的键。重命名后会保留别名（<a href="https://github.com/dekiengine/deki-editor/blob/master/COMPATIBILITY.md">兼容性</a>）。 </p>
+<p>由包的反射数据生成（引擎 0.30.3）。属性名就是场景文件中使用的键。重命名后会保留别名（<a href="https://github.com/dekiengine/deki-editor/blob/master/COMPATIBILITY.md">兼容性</a>）。 </p>
 </div></div><!-- PageDoc -->
 <a href="doxygen_crawl.html"></a>
 </div><!-- contents -->
