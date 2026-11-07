@@ -56,7 +56,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">deki-sdl3-integration<span id="projectnumber">&#160;0.22.0</span>
+   <div id="projectname">deki-sdl3-integration<span id="projectnumber">&#160;0.30.0</span>
    </div>
    <div id="projectbrief">Deki package reference</div>
   </td>
@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('index.html',''
 <img src="deki-sdl3-integration.png" alt=""/>
 </div>
     <p>SDL3 display, input, and filesystem integration</p>
-<p>Repository: <a href="https://github.com/dekiengine/deki-sdl3-integration">github.com/dekiengine/deki-sdl3-integration</a> · Latest release: 0.22.0 · Needs engine 0.22.0+ · Requires: <a href="https://dekiengine.github.io/deki-input/">deki-input</a></p>
+<p>Repository: <a href="https://github.com/dekiengine/deki-sdl3-integration">github.com/dekiengine/deki-sdl3-integration</a> · Latest release: 0.30.0 · Needs engine 0.30.0+ · Requires: <a href="https://dekiengine.github.io/deki-input/">deki-input</a></p>
 <p>Install with <span class="tt">DekiEditor --packages-add deki-sdl3-integration &lt;project&gt;</span>, or from the Package Manager. The engine's own components and C++ API are in the <a href="https://dekiengine.github.io/docs/">Deki docs</a>.</p>
 <p>Shown in the editor as <b>SDL3 Integration</b>.</p>
 <h1 class="doxsection"><a class="anchor" id="components"></a>
@@ -165,13 +165,31 @@ SDL3InputSetup</h2>
 <h1 class="doxsection"><a class="anchor" id="changelog"></a>
 Changelog</h1>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md0"></a>
-0.22.0</h2>
+0.30.0</h2>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md1"></a>
+Changed</h2>
+<ul>
+<li><span class="tt">minEngine</span> 0.30.0: built against engine 0.30.0. A build of this package from before does not load and is rebuilt.</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md2"></a>
+Declares the capabilities it uses</h2>
+<ul>
+<li><span class="tt">package.json</span> has <span class="tt">"capabilityDefines": ["opengl"]</span>: its GL presenter tests <span class="tt">DEKI_CAPABILITY_OPENGL</span>. The editor reads them instead of knowing <span class="tt">opengl</span> itself; needs the editor from this release.</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md3"></a>
+Added</h2>
+<ul>
+<li><span class="tt">SDL3GLDisplay</span>: where the platform provides <span class="tt">opengl</span>, the window presents through OpenGL and deki-rendering's <span class="tt">GLPresenter</span>, so the frame is built on the GPU and deki-3d's meshes draw straight into it. <span class="tt">SDL3DisplaySetup</span>'s <span class="tt">presentThroughOpenGL</span> (on by default) chooses it; SDL's GPU API remains the fallback.</li>
+<li><span class="tt">SDL3DisplaySetup.draw2DOnGpu</span> (on by default): presenting through OpenGL, the 2D is drawn on the GPU too, by the presenter, and the CPU draws no pixels. The frame buffer then holds only what code writes into it directly, so a screenshot of it misses the 2D; turn it off for that, or to see the 565 rounding a device's screen shows.</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md4"></a>
+0.22.0</h2>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md5"></a>
 Added</h2>
 <ul>
 <li>On Linux and macOS the game's window has the Deki cat as its icon. Windows takes it from the exe (deki-desktop-integration).</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md6"></a>
 Changed</h2>
 <ul>
 <li>The game's window is drawn with SDL's GPU API (Direct3D 12 on Windows, Vulkan on Linux, Metal on macOS) instead of SDL's OpenGL renderer. It never waits for the display, so a hidden or background window cannot stall it.</li>
@@ -179,21 +197,9 @@ Changed</h2>
 <li>UI overlays are gone: nothing in the engine creates one.</li>
 <li><span class="tt">minEngine</span> 0.22.0: built against engine 0.22.0. A build of this package from before does not load and is rebuilt.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md3"></a>
-0.21.0</h2>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md4"></a>
-Added</h2>
-<ul>
-<li>The clock gives microseconds (<span class="tt">GetTicksUs</span>), so the engine times frames finer than a millisecond.</li>
-</ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md5"></a>
-Changed</h2>
-<ul>
-<li><span class="tt">minEngine</span> 0.21.0: built against engine 0.21.0. A build of this package from before does not load and is rebuilt.</li>
-</ul>
 <p>Earlier releases: <a href="https://github.com/dekiengine/deki-sdl3-integration/blob/master/CHANGELOG.md">CHANGELOG.md</a>.</p>
 <hr  />
-<p>Generated from the package's reflection data (engine 0.22.0). Property names are the keys used in scene files. Renames keep an alias (<a href="https://github.com/dekiengine/deki-editor/blob/master/COMPATIBILITY.md">compatibility</a>). </p>
+<p>Generated from the package's reflection data (engine 0.30.0). Property names are the keys used in scene files. Renames keep an alias (<a href="https://github.com/dekiengine/deki-editor/blob/master/COMPATIBILITY.md">compatibility</a>). </p>
 </div></div><!-- PageDoc -->
 <a href="doxygen_crawl.html"></a>
 </div><!-- contents -->

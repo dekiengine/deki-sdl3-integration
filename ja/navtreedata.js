@@ -32,12 +32,13 @@ var NAVTREE =
       [ "SDL3InputSetup", "index.html#c-sdl3inputsetup", null ]
     ] ],
     [ "変更履歴", "index.html#changelog", [
-      [ "0.22.0", "index.html#autotoc_md0", null ],
-      [ "Added", "index.html#autotoc_md1", null ],
-      [ "Changed", "index.html#autotoc_md2", null ],
-      [ "0.21.0", "index.html#autotoc_md3", null ],
-      [ "Added", "index.html#autotoc_md4", null ],
-      [ "Changed", "index.html#autotoc_md5", null ]
+      [ "0.30.0", "index.html#autotoc_md0", null ],
+      [ "Changed", "index.html#autotoc_md1", null ],
+      [ "Declares the capabilities it uses", "index.html#autotoc_md2", null ],
+      [ "Added", "index.html#autotoc_md3", null ],
+      [ "0.22.0", "index.html#autotoc_md4", null ],
+      [ "Added", "index.html#autotoc_md5", null ],
+      [ "Changed", "index.html#autotoc_md6", null ]
     ] ]
   ] ]
 ];
