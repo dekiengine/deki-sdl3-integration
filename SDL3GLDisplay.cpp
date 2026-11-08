@@ -21,9 +21,10 @@ bool SDL3GLDisplay::Initialize(int32_t width, int32_t height)
     }
 
     // OpenGL ES 3.0 on Linux, the API a handheld has, so the desktop runs the
-    // same shaders; desktop OpenGL 3.3 core elsewhere, which Windows and
+    // same shaders, and in a browser, where it is WebGL 2; desktop OpenGL 3.3
+    // core elsewhere, which Windows and
     // macOS drivers offer.
-#if defined(__linux__)
+#if defined(__linux__) || defined(__EMSCRIPTEN__)
     const bool es = true;
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_ES);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
