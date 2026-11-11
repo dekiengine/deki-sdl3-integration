@@ -2,6 +2,7 @@
 #include <deki/LogSystem.h>
 
 #if !defined(DEKI_EDITOR) && defined(DEKI_PACKAGE_SDL3)
+#include "SDL3Gamepad.h"
 #include "SDL3Input.h"
 #include "DekiInput.h"      // from deki-input
 #include "DekiInputInit.h"  // DekiInputInitSystem (from deki-input)
@@ -26,6 +27,19 @@ void SDL3InputSetup::Setup(SetupCallback onComplete)
         // alias names the class once.
         using DekiInputApi = DekiInput::DekiInput;
         DekiInputApi::SetInput(std::move(input), "SDL3");
+
+        if (enableGamepad)
+        {
+            auto pads = std::make_unique<SDL3Gamepad>();
+            if (pads->Initialize())
+            {
+                DekiInputApi::SetInput(std::move(pads), SDL3Gamepad::kSourceName);
+            }
+            else
+            {
+                DEKI_LOG_WARNING("SDL3InputSetup: no gamepads: %s", SDL_GetError());
+            }
+        }
 
         // Start deki-input's dispatch system and register it with the engine.
         // Editor and firmware builds do this in the generated

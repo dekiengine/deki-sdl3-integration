@@ -184,8 +184,8 @@ bool SDL3Display::Initialize(int32_t width, int32_t height)
     }
 
     initialized = true;
-    DEKI_LOG_INTERNAL("SDL3 display initialized: %dx%d screen, window x%d, %s", width, height, (int)m_WindowScale,
-                      SDL_GetGPUDeviceDriver(m_Device));
+    DEKI_LOG_INTERNAL("SDL3 display initialized: %dx%d screen, window x%d, %s", width, height,
+                      static_cast<int>(m_WindowScale), SDL_GetGPUDeviceDriver(m_Device));
 
     return true;
 }

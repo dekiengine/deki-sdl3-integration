@@ -10,6 +10,7 @@ set(PACKAGE_SOURCES
     SDL3Display.cpp
     SDL3GLDisplay.cpp
     SDL3Input.cpp
+    SDL3Gamepad.cpp
 )
 set(PACKAGE_ENTRY SDL3Package.cpp)
 set(PACKAGE_LINK_DEPS deki-input)

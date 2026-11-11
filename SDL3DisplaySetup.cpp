@@ -43,8 +43,9 @@ void SDL3DisplaySetup::Setup(SetupCallback onComplete)
     }
 #endif
 
-    DEKI_LOG_INFO("SDL3DisplaySetup: Creating SDL3 display (%dx%d screen, window x%d)", (int)DEKI_SCREEN_WIDTH,
-                  (int)DEKI_SCREEN_HEIGHT, (int)windowScale);
+    DEKI_LOG_INFO("SDL3DisplaySetup: Creating SDL3 display (%dx%d screen, window x%d)",
+                  static_cast<int>(DEKI_SCREEN_WIDTH), static_cast<int>(DEKI_SCREEN_HEIGHT),
+                  static_cast<int>(windowScale));
 
     s_SDL3Display = std::make_unique<SDL3Display>();
     if (s_SDL3Display)

@@ -95,8 +95,8 @@ void SDL3Input::Update()
     {
         WindowToFramebuffer(SDL_GetWindowID(focus), mx, my);
     }
-    m_MouseX = (int32_t)mx;
-    m_MouseY = (int32_t)my;
+    m_MouseX = static_cast<int32_t>(mx);
+    m_MouseY = static_cast<int32_t>(my);
     m_MousePressed = (mouseState & SDL_BUTTON_LMASK) != 0;
 }
 
@@ -120,8 +120,8 @@ void SDL3Input::ProcessSDLEvent(const SDL_Event& event)
             float ex = event.motion.x, ey = event.motion.y;
             WindowToFramebuffer(event.motion.windowID, ex, ey);
             inputEvent.type = DekiInput::InputEventType::MouseMove;
-            inputEvent.x = (int32_t)ex;
-            inputEvent.y = (int32_t)ey;
+            inputEvent.x = static_cast<int32_t>(ex);
+            inputEvent.y = static_cast<int32_t>(ey);
             NotifyCallbacks(inputEvent);
             break;
         }
@@ -131,8 +131,8 @@ void SDL3Input::ProcessSDLEvent(const SDL_Event& event)
             float ex = event.button.x, ey = event.button.y;
             WindowToFramebuffer(event.button.windowID, ex, ey);
             inputEvent.type = DekiInput::InputEventType::MouseButtonDown;
-            inputEvent.x = (int32_t)ex;
-            inputEvent.y = (int32_t)ey;
+            inputEvent.x = static_cast<int32_t>(ex);
+            inputEvent.y = static_cast<int32_t>(ey);
             inputEvent.pressed = true;
             NotifyCallbacks(inputEvent);
             break;
@@ -143,8 +143,8 @@ void SDL3Input::ProcessSDLEvent(const SDL_Event& event)
             float ex = event.button.x, ey = event.button.y;
             WindowToFramebuffer(event.button.windowID, ex, ey);
             inputEvent.type = DekiInput::InputEventType::MouseButtonUp;
-            inputEvent.x = (int32_t)ex;
-            inputEvent.y = (int32_t)ey;
+            inputEvent.x = static_cast<int32_t>(ex);
+            inputEvent.y = static_cast<int32_t>(ey);
             inputEvent.pressed = false;
             NotifyCallbacks(inputEvent);
             break;

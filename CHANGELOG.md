@@ -8,6 +8,15 @@ breaking change bumps the minor across the editor, the engine and every
 package together, so a package with no changes of its own is still released
 alongside one that has them.
 
+## Unreleased
+
+### Added
+- Gamepads. `SDL3InputSetup` reads every connected pad as keys, the same keys a
+  handheld's buttons send: the D-pad and left stick are the arrows, A and
+  Start Enter, B Esc, X Space, Y Tab, Back Backspace, LB and RB Q and E, LT and
+  RT Z and C. Its events come from the source "Gamepad". **Enable Gamepad**
+  turns it off.
+
 ## 0.30.0
 
 ### Changed
