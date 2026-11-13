@@ -23,8 +23,9 @@ namespace DekiSdl3
 ///   LB, RB              Q, E
 ///   LT, RT              Z, C
 ///
-/// Every connected pad counts, and one plugged in while the game runs is
-/// picked up. Registered as the input source "Gamepad".
+/// The sticks are also read as sticks (DekiInput::GetStick). Every connected
+/// pad counts, and one plugged in while the game runs is picked up.
+/// Registered as the input source "Gamepad".
 class SDL3Gamepad : public DekiInput::IDekiInput
 {
 public:
@@ -39,6 +40,8 @@ public:
     bool IsInitialized() const override { return m_Initialized; }
     bool GetPointerPosition(int32_t* x, int32_t* y) const override;
     bool IsKeyPressed(uint32_t key) const override;
+    /// The stick pushed furthest on any pad: 0 the left, 1 the right.
+    bool GetStick(int stick, float* x, float* y) const override;
 
     /// How many pads are open.
     size_t PadCount() const { return m_Pads.size(); }

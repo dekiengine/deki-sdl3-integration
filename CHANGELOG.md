@@ -11,6 +11,8 @@ alongside one that has them.
 ## Unreleased
 
 ### Added
+- A gamepad's sticks are also read as sticks (`DekiInput::GetStick`): the
+  one pushed furthest on any connected pad.
 - Gamepads. `SDL3InputSetup` reads every connected pad as keys, the same keys a
   handheld's buttons send: the D-pad and left stick are the arrows, A and
   Start Enter, B Esc, X Space, Y Tab, Back Backspace, LB and RB Q and E, LT and

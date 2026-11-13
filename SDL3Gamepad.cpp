@@ -13,11 +13,19 @@ constexpr Sint16 kStickThreshold = 16000;
 constexpr Sint16 kTriggerThreshold = 16000;
 
 // The keys a pad sends, in the order they are checked.
-constexpr uint32_t kKeys[] = { DekiInput::Keys::Up,        DekiInput::Keys::Down,  DekiInput::Keys::Left,
-                               DekiInput::Keys::Right,     DekiInput::Keys::Enter, DekiInput::Keys::Esc,
-                               DekiInput::Keys::Space,     DekiInput::Keys::Tab,   DekiInput::Keys::Backspace,
-                               DekiInput::Keys::ForCharacter('q'), DekiInput::Keys::ForCharacter('e'),
-                               DekiInput::Keys::ForCharacter('z'), DekiInput::Keys::ForCharacter('c') };
+constexpr uint32_t kKeys[] = { DekiInput::Keys::Up,
+                               DekiInput::Keys::Down,
+                               DekiInput::Keys::Left,
+                               DekiInput::Keys::Right,
+                               DekiInput::Keys::Enter,
+                               DekiInput::Keys::Esc,
+                               DekiInput::Keys::Space,
+                               DekiInput::Keys::Tab,
+                               DekiInput::Keys::Backspace,
+                               DekiInput::Keys::ForCharacter('q'),
+                               DekiInput::Keys::ForCharacter('e'),
+                               DekiInput::Keys::ForCharacter('z'),
+                               DekiInput::Keys::ForCharacter('c') };
 
 bool PadSends(SDL_Gamepad* pad, uint32_t key)
 {
@@ -25,10 +33,14 @@ bool PadSends(SDL_Gamepad* pad, uint32_t key)
     auto axis = [pad](SDL_GamepadAxis a) { return SDL_GetGamepadAxis(pad, a); };
     switch (key)
     {
-        case DekiInput::Keys::Up: return button(SDL_GAMEPAD_BUTTON_DPAD_UP) || axis(SDL_GAMEPAD_AXIS_LEFTY) < -kStickThreshold;
-        case DekiInput::Keys::Down: return button(SDL_GAMEPAD_BUTTON_DPAD_DOWN) || axis(SDL_GAMEPAD_AXIS_LEFTY) > kStickThreshold;
-        case DekiInput::Keys::Left: return button(SDL_GAMEPAD_BUTTON_DPAD_LEFT) || axis(SDL_GAMEPAD_AXIS_LEFTX) < -kStickThreshold;
-        case DekiInput::Keys::Right: return button(SDL_GAMEPAD_BUTTON_DPAD_RIGHT) || axis(SDL_GAMEPAD_AXIS_LEFTX) > kStickThreshold;
+        case DekiInput::Keys::Up:
+            return button(SDL_GAMEPAD_BUTTON_DPAD_UP) || axis(SDL_GAMEPAD_AXIS_LEFTY) < -kStickThreshold;
+        case DekiInput::Keys::Down:
+            return button(SDL_GAMEPAD_BUTTON_DPAD_DOWN) || axis(SDL_GAMEPAD_AXIS_LEFTY) > kStickThreshold;
+        case DekiInput::Keys::Left:
+            return button(SDL_GAMEPAD_BUTTON_DPAD_LEFT) || axis(SDL_GAMEPAD_AXIS_LEFTX) < -kStickThreshold;
+        case DekiInput::Keys::Right:
+            return button(SDL_GAMEPAD_BUTTON_DPAD_RIGHT) || axis(SDL_GAMEPAD_AXIS_LEFTX) > kStickThreshold;
         case DekiInput::Keys::Enter: return button(SDL_GAMEPAD_BUTTON_SOUTH) || button(SDL_GAMEPAD_BUTTON_START);
         case DekiInput::Keys::Esc: return button(SDL_GAMEPAD_BUTTON_EAST);
         case DekiInput::Keys::Space: return button(SDL_GAMEPAD_BUTTON_WEST);
@@ -82,6 +94,32 @@ void SDL3Gamepad::RegisterEventCallback(const DekiInput::InputEventCallback& cal
 bool SDL3Gamepad::GetPointerPosition(int32_t*, int32_t*) const
 {
     return false;
+}
+
+bool SDL3Gamepad::GetStick(int stick, float* x, float* y) const
+{
+    if ((stick != 0 && stick != 1) || m_Pads.empty())
+    {
+        return false;
+    }
+    const SDL_GamepadAxis axisX = stick == 0 ? SDL_GAMEPAD_AXIS_LEFTX : SDL_GAMEPAD_AXIS_RIGHTX;
+    const SDL_GamepadAxis axisY = stick == 0 ? SDL_GAMEPAD_AXIS_LEFTY : SDL_GAMEPAD_AXIS_RIGHTY;
+    float bestX = 0.0f;
+    float bestY = 0.0f;
+    for (SDL_Gamepad* pad : m_Pads)
+    {
+        // SDL's axes run from -32768 to 32767, down positive.
+        const float px = std::clamp(SDL_GetGamepadAxis(pad, axisX) / 32767.0f, -1.0f, 1.0f);
+        const float py = std::clamp(-SDL_GetGamepadAxis(pad, axisY) / 32767.0f, -1.0f, 1.0f);
+        if (px * px + py * py > bestX * bestX + bestY * bestY)
+        {
+            bestX = px;
+            bestY = py;
+        }
+    }
+    *x = bestX;
+    *y = bestY;
+    return true;
 }
 
 bool SDL3Gamepad::IsKeyPressed(uint32_t key) const
