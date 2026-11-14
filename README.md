@@ -26,6 +26,15 @@ Package Manager in the Deki Editor, or `DekiEditor --packages-add deki-sdl3-inte
 | `deki-input` | Deki package |
 | `SDL3` (3.2.8) | External (zlib License) |
 
+## Gamepads
+
+With **Enable Gamepad** on (the default), `SDL3InputSetup` reads every connected
+gamepad as the keys a handheld's buttons send: the D-pad and left stick are the
+arrows, A and Start Enter, B Esc, X Space, Y Tab, Back Backspace, LB and RB Q
+and E, LT and RT Z and C. Both sticks are also read as sticks
+(`DekiInput::GetStick`), from whichever pad has them pushed furthest. The
+editor's Play view reads gamepads the same way.
+
 ## Partial present
 
 `SDL3Display::PresentRegions` uploads only the changed rectangles of an RGB565
