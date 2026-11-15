@@ -11,6 +11,9 @@ set(PACKAGE_SOURCES
     SDL3GLDisplay.cpp
     SDL3Input.cpp
     SDL3Gamepad.cpp
+    SDL3Audio.cpp
+    SDL3AudioSetup.cpp
 )
 set(PACKAGE_ENTRY SDL3Package.cpp)
-set(PACKAGE_LINK_DEPS deki-input)
+# deki-audio links only when the project has it: see the audio feature.
+set(PACKAGE_LINK_DEPS deki-input deki-audio)

@@ -8,6 +8,16 @@ breaking change bumps the minor across the editor, the engine and every
 package together, so a package with no changes of its own is still released
 alongside one that has them.
 
+## Unreleased
+
+### Added
+- **Sound.** `SDL3AudioSetup` plays deki-audio's mixer through the computer's
+  speakers, or the browser's in a Web build: Sample Rate (48000), Channels
+  and Initial Volume. It starts with the first sound. Without deki-audio in
+  the project it does nothing and the game starts as usual.
+- The editor's Play view plays the game's sound too, from Play until Stop,
+  and pauses it with the game.
+
 ## 0.40.0
 
 ### Changed

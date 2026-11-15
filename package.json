@@ -28,6 +28,17 @@
       "componentTypes": [
         "SDL3InputSetup"
       ]
+    },
+    {
+      "id": "audio",
+      "displayName": "Audio",
+      "defaultEnabled": true,
+      "componentTypes": [
+        "SDL3AudioSetup"
+      ],
+      "requires": [
+        "deki-audio"
+      ]
     }
   ],
   "dependencies": {
