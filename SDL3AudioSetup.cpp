@@ -21,6 +21,9 @@ void SDL3AudioSetup::Setup(SetupCallback onComplete)
     // empty stub for it, so it happens here too. Safe to repeat.
     DekiAudioInitSystem();
 
+    // The mixer first, so it is destroyed after the output that reads it
+    // when the game quits.
+    DekiAudio::Mixer::Instance();
     static SDL3Audio s_Audio;
     Deki::PackageConfig config;
     config.packageId = "audio";
