@@ -31,7 +31,7 @@ public:
     DEKI_EXPORT
     DEKI_TOOLTIP("The master volume at startup, 0 to 100.")
     DEKI_RANGE(0, 100)
-    int32_t initialVolume = 100;
+    int32_t initialVolume = 50;
 
     void Setup(SetupCallback onComplete) override;
     const char* GetSetupName() const override { return "SDL3 Audio"; }
